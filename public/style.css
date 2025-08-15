@@ -1,0 +1,313 @@
+/* === RESET DASAR === */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+}
+
+/* === CUSTOM NAVBAR === */
+.bg-pelindo {
+  background-color: rgba(4, 117, 188, 0.9) !important;
+}
+
+/* === HERO / JUMBOTRON === */
+.kotak-gambar {
+  width: 100%;
+  height: 350px; /* tinggi hero */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kotak-gambar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Overlay gelap di atas gambar */
+.kotak-gambar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Teks di tengah gambar */
+.kotak-gambar .teks-jumbotron {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: white;
+}
+
+.kotak-gambar .teks-jumbotron h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.kotak-gambar .teks-jumbotron p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* === KONTEN UTAMA === */
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  flex: 1 1 300px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .btn {
+  background-color: white;
+  border: 2px solid #0ea2bf;
+  color: black;
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 10px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  border-radius: 20px;
+}
+
+.sidebar .btn:hover,
+.sidebar .btn.active {
+  background-color: rgba(4, 117, 188, 0.9);
+  color: white;
+}
+
+.sidebar .btn.active {
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+}
+
+/* === MAIN CONTENT === */
+.main-content {
+  flex: 2 1 500px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.main-content h3 {
+  color: black;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.main-content p,
+.main-content ul {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* Hero Banner */
+.hero-banner {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Search Bar */
+.search-input {
+    border-radius: 20px 0 0 20px;
+    border: 1px solid #ccc;
+}
+
+.btn-search {
+    background-color: #0475bc;
+    color: white;
+    border-radius: 0 20px 20px 0;
+    border: none;
+    padding: 0 15px;
+}
+
+.btn-search:hover {
+    background-color: #035a8e;
+}
+
+/* Berita Cards */
+.news-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.news-card:hover {
+    transform: translateY(-4px);
+}
+
+.news-card img {
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Pagination */
+.pagination .page-link {
+    color: #0475bc;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0475bc;
+    border-color: #0475bc;
+}
+
+
+/* === IKON === */
+.kotak-ikon {
+  background-color: #f1f1f1;
+  padding: 12px;
+  border-radius: 6px;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.kotak-ikon:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.judul-ikon {
+  font-weight: bold;
+}
+
+/* === PROSEDUR LAYANAN === */
+.prosedur {
+  background-color: #e3eef3;
+}
+
+.prosedur .row {
+  padding: 0 48px;
+}
+
+.kiri,
+.kanan {
+  flex: 1;
+  min-width: 250px;
+}
+
+.kanan {
+  position: relative;
+}
+
+.kanan img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.teks-gambar a {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: transparent;
+  color: black;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+/* === INSTAGRAM & YOUTUBE === */
+.instagram-youtube-wrapper {
+  width: 100%;
+  background-color: #e3eef3;
+  text-align: center;
+}
+
+.instagram-youtube {
+  padding: 60px 20px;
+  border-radius: 8px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.poster-img {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  height: auto;
+}
+
+.img-youtube {
+  max-width: 200px;
+  width: 100%;
+}
+
+.instagram-youtube h2 {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .instagram-youtube {
+    flex-direction: column;
+  }
+  
+  .img-youtube {
+    max-width: 100%;
+  }
+
+  .sidebar,
+  .main-content {
+    max-width: 100%;
+    width: 100%;
+  }
+}
