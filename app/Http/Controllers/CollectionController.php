@@ -16,7 +16,7 @@ class CollectionController extends Controller
     public function index()
     {
         $categories = CollectionCategory::get();
-        $collections = Collection::with('category')->paginate(12);
+        $collections = Collection::with('category')->latest()->paginate(12);
         return view('pages.collection.index', compact('categories', 'collections'));
     }
 

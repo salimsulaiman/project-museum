@@ -50,6 +50,10 @@
                     @endforeach
                 </div>
 
+                <div class="mt-4 d-flex justify-content-center">
+                    {{ $collections->links() }}
+                </div>
+
             </div>
         </div>
     </div>

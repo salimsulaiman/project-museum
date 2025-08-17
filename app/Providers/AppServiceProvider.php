@@ -8,6 +8,7 @@ use App\Models\NavbarSection;
 use App\Models\Visitor;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('partials.header', function ($view) {
             $view->with('navbarSection', NavbarSection::with('links')->first());
         });
+
+        Paginator::useBootstrapFive();
     }
 }

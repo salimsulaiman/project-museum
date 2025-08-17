@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\ProfileSection;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
-class ProfileController extends Controller
+class ProfileSectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profile = ProfileSection::first();
-        return view('pages.profile.index', compact('profile'));
+        $profileSection = ProfileSection::first();
+        return view('pages.admin.profile-section.index', compact('profileSection'), [
+            'title' => 'Profile Section'
+        ]);
     }
 
     /**
@@ -69,9 +71,22 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'id'      => 'required|exists:profile_sections,id',
+            'content' => 'required|string',
+        ]);
+
+        $profileSection = ProfileSection::findOrFail($request->id);
+
+        $dataUpdate = [
+            'content' => $request->content,
+        ];
+
+        $profileSection->update($dataUpdate);
+
+        return redirect()->back()->with('successUpdate', 'Profil berhasil diperbarui.');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StructureSection;
 use Illuminate\Http\Request;
 
 class StructureController extends Controller
@@ -13,7 +14,8 @@ class StructureController extends Controller
      */
     public function index()
     {
-        return view('pages.structure.index');
+        $structure = StructureSection::first();
+        return view('pages.structure.index', compact('structure'));
     }
 
     /**

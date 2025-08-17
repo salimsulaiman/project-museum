@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\VisionMission;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
@@ -13,7 +14,8 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return view('pages.about.index');
+        $visionMission = VisionMission::first();
+        return view('pages.about.index', compact('visionMission'));
     }
 
     /**

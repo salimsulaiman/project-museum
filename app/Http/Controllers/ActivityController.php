@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -13,7 +15,10 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return view('pages.activity.index');
+        $events = Event::with('category', 'location')->latest()->paginate(6);
+        $topEvents = Event::with('category', 'location')->latest()->limit('3')->get();
+        $latestNews = News::limit(4)->get();
+        return view('pages.event.index', compact('events', 'topEvents', 'latestNews'));
     }
 
     /**
@@ -43,9 +48,14 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $event = Event::where('slug', $slug)->firstOrFail();
+        $relatedEvents = News::where('id', '!=', $event->id)
+            ->latest()
+            ->take(4)
+            ->get();
+        return view('pages.event.detail', compact('event', 'relatedEvents'));
     }
 
     /**

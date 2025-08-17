@@ -3,7 +3,7 @@
      <!-- Sidebar scroll-->
      <div>
          <div class="brand-logo d-flex align-items-center justify-content-between">
-             <a href="./index.html" class="text-nowrap logo-img">
+             <a href="{{ route('admin.dashboard.index') }}" class="text-nowrap logo-img">
                  <img src="{{ asset('./images/logos/dark-logo.svg') }}" width="180" alt="" />
              </a>
              <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -69,6 +69,30 @@
                                  <span class="hide-menu">Layanan</span>
                              </a>
                          </li>
+                         <li class="sidebar-item">
+                             <a href="{{ route('admin.profile-section.index') }}" class="sidebar-link">
+                                 <span>
+                                     <i class="fa fa-bars"></i>
+                                 </span>
+                                 <span class="hide-menu">Profil</span>
+                             </a>
+                         </li>
+                         <li class="sidebar-item">
+                             <a href="{{ route('admin.vision-mission-section.index') }}" class="sidebar-link">
+                                 <span>
+                                     <i class="fa fa-bars"></i>
+                                 </span>
+                                 <span class="hide-menu">Visi & Misi</span>
+                             </a>
+                         </li>
+                         <li class="sidebar-item">
+                             <a href="{{ route('admin.structure-section.index') }}" class="sidebar-link">
+                                 <span>
+                                     <i class="fa fa-bars"></i>
+                                 </span>
+                                 <span class="hide-menu">Struktur</span>
+                             </a>
+                         </li>
                      </ul>
                  </li>
 
@@ -94,6 +118,41 @@
                                      <i class="fa fa-bars"></i>
                                  </span>
                                  <span class="hide-menu">Koleksi</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+
+                 <li class="sidebar-item">
+                     <a class="sidebar-link" href="javascript:void(0)" data-toggle="collapse"
+                         data-target="#collection-submenu" aria-expanded="false" style="position: relative;">
+                         <i class="fa fa-tasks"></i>
+                         <span class="hide-menu">Event</span>
+                         <i class="fa fa-caret-down pull-right arrow-right"></i>
+                     </a>
+                     <ul id="collection-submenu" class="collapse first-level" style="padding-left: 20px;">
+                         <li class="sidebar-item">
+                             <a href="{{ route('admin.event-categories.index') }}" class="sidebar-link">
+                                 <span>
+                                     <i class="fa fa-bars"></i>
+                                 </span>
+                                 <span class="hide-menu">Kategori</span>
+                             </a>
+                         </li>
+                         <li class="sidebar-item">
+                             <a href="{{ route('admin.event-locations.index') }}" class="sidebar-link">
+                                 <span>
+                                     <i class="fa fa-bars"></i>
+                                 </span>
+                                 <span class="hide-menu">Lokasi</span>
+                             </a>
+                         </li>
+                         <li class="sidebar-item">
+                             <a href="{{ route('admin.events.index') }}" class="sidebar-link">
+                                 <span>
+                                     <i class="fa fa-bars"></i>
+                                 </span>
+                                 <span class="hide-menu">Event</span>
                              </a>
                          </li>
                      </ul>

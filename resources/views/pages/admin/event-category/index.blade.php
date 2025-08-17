@@ -1,5 +1,5 @@
 @extends('layout.admin.app')
-@section('title', 'Collection Category')
+@section('title', 'Event Category')
 @section('content')
     <div>
         <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addcategory">Tambah
@@ -11,8 +11,7 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kategori</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="{{ route('admin.collection-categories.store') }}"
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.event-categories.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body px-4">
 
@@ -21,13 +20,6 @@
                                 <input type="text" required id="name" name="name" class="form-control"
                                     value="{{ old('name') }}">
                             </div>
-
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Gambar</label>
-                                <input type="file" id="image" name="image" class="form-control" accept="image/*"
-                                    required>
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
@@ -43,7 +35,6 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Slug</th>
-                    <th>Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -53,12 +44,6 @@
                         <th>{{ $index + 1 }}</th>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->slug }}</td>
-                        <td>
-                            <div style="width: 80px; height: 80px; overflow: hidden; border-radius: 8px;">
-                                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->title }}"
-                                    style="width: 100%; height: 100%; object-fit: cover;">
-                            </div>
-                        </td>
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-secondary" data-bs-toggle="modal"
@@ -74,7 +59,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form method="POST" action="{{ route('admin.collection-categories.update') }}"
+                                            <form method="POST" action="{{ route('admin.event-categories.update') }}"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('put')
@@ -85,21 +70,6 @@
                                                         <input type="text" id="name" name="name"
                                                             class="form-control" value="{{ old('name', $category->name) }}"
                                                             required>
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="image" class="form-label">Gambar</label>
-                                                        @if ($category->image)
-                                                            <div class="mb-2">
-                                                                <img src="{{ asset('storage/' . $category->image) }}"
-                                                                    alt="Preview"
-                                                                    style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
-                                                            </div>
-                                                        @endif
-                                                        <input type="file" id="image" name="image"
-                                                            class="form-control" accept="image/*">
-                                                        <small class="text-muted">Kosongkan jika tidak ingin mengganti
-                                                            gambar.</small>
                                                     </div>
 
                                                 </div>
@@ -125,8 +95,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form method="POST"
-                                                action="{{ route('admin.collection-categories.remove') }}">
+                                            <form method="POST" action="{{ route('admin.event-categories.remove') }}">
                                                 @csrf
                                                 @method('delete')
                                                 <div class="modal-body px-4">

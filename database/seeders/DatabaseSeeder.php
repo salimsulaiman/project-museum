@@ -31,5 +31,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(VisitorSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(ProfileSectionSeeder::class);
+        $this->call(VisionMissionSeeder::class);
+        $this->call(StructureSectionSeeder::class);
     }
 }

@@ -1,18 +1,17 @@
 @extends('layout.admin.app')
-@section('title', 'Collection Category')
+@section('title', 'Event Location')
 @section('content')
     <div>
-        <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addcategory">Tambah
-            Kategori +</button>
-        <div class="modal fade" id="addcategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addLocation">Tambah
+            Lokasi +</button>
+        <div class="modal fade" id="addLocation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kategori</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Lokasi</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="{{ route('admin.collection-categories.store') }}"
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.event-locations.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body px-4">
 
@@ -48,50 +47,50 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $index => $category)
+                @foreach ($locations as $index => $location)
                     <tr>
                         <th>{{ $index + 1 }}</th>
-                        <td>{{ $category->name }}</td>
-                        <td>{{ $category->slug }}</td>
+                        <td>{{ $location->name }}</td>
+                        <td>{{ $location->slug }}</td>
                         <td>
                             <div style="width: 80px; height: 80px; overflow: hidden; border-radius: 8px;">
-                                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->title }}"
+                                <img src="{{ asset('storage/' . $location->image) }}" alt="{{ $location->title }}"
                                     style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                         </td>
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#updatecategory{{ $category->id }}">Edit</button>
-                                <div class="modal fade" id="updatecategory{{ $category->id }}" tabindex="-1"
+                                    data-bs-target="#updateLocation{{ $location->id }}">Edit</button>
+                                <div class="modal fade" id="updateLocation{{ $location->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                    Edit Kategori
+                                                    Edit Lokasi
                                                 </h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form method="POST" action="{{ route('admin.collection-categories.update') }}"
+                                            <form method="POST" action="{{ route('admin.event-locations.update') }}"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('put')
                                                 <div class="modal-body px-4">
-                                                    <input type="hidden" name="id" value="{{ $category->id }}">
+                                                    <input type="hidden" name="id" value="{{ $location->id }}">
                                                     <div class="mb-3">
                                                         <label for="name" class="form-label">Nama</label>
                                                         <input type="text" id="name" name="name"
-                                                            class="form-control" value="{{ old('name', $category->name) }}"
+                                                            class="form-control" value="{{ old('name', $location->name) }}"
                                                             required>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="image" class="form-label">Gambar</label>
-                                                        @if ($category->image)
+                                                        @if ($location->image)
                                                             <div class="mb-2">
-                                                                <img src="{{ asset('storage/' . $category->image) }}"
+                                                                <img src="{{ asset('storage/' . $location->image) }}"
                                                                     alt="Preview"
                                                                     style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
                                                             </div>
@@ -113,26 +112,25 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deletecategory{{ $category->id }}">Hapus</button>
-                                <div class="modal fade" id="deletecategory{{ $category->id }}" tabindex="-1"
+                                    data-bs-target="#deleteLocation{{ $location->id }}">Hapus</button>
+                                <div class="modal fade" id="deleteLocation{{ $location->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                    Hapus Kategori
+                                                    Hapus Lokasi
                                                 </h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form method="POST"
-                                                action="{{ route('admin.collection-categories.remove') }}">
+                                            <form method="POST" action="{{ route('admin.event-locations.remove') }}">
                                                 @csrf
                                                 @method('delete')
                                                 <div class="modal-body px-4">
                                                     <p class="py-4">Apakah anda yakin akan menghapus data ini?</p>
                                                     <input type="hidden" name="id" id="id"
-                                                        value="{{ $category->id }}">
+                                                        value="{{ $location->id }}">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"

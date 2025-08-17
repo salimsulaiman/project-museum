@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\ProfileSection;
+use App\Http\Controllers\Controller;
+use App\Models\VisionMission;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
-class ProfileController extends Controller
+class VisionMissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profile = ProfileSection::first();
-        return view('pages.profile.index', compact('profile'));
+        $visionMissionSection = VisionMission::first();
+        return view('pages.admin.vision-mission-section.index', compact('visionMissionSection'), [
+            'title' => 'Vision & Mission Section'
+        ]);
     }
 
     /**
@@ -69,9 +71,22 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'id'      => 'required|exists:vision_missions,id',
+            'content' => 'required|string',
+        ]);
+
+        $visionMission = VisionMission::findOrFail($request->id);
+
+        $dataUpdate = [
+            'content' => $request->content,
+        ];
+
+        $visionMission->update($dataUpdate);
+
+        return redirect()->back()->with('successUpdate', 'Visi & Misi berhasil diperbarui.');
     }
 
     /**

@@ -191,16 +191,6 @@ body {
     object-fit: cover;
 }
 
-/* Pagination */
-.pagination .page-link {
-    color: #0475bc;
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #0475bc;
-    border-color: #0475bc;
-}
-
 
 /* === IKON === */
 .kotak-ikon {

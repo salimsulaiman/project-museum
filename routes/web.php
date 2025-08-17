@@ -13,6 +13,12 @@ use App\Http\Controllers\Admin\CollectionCategoryController as AdminCollectionCa
 use App\Http\Controllers\Admin\CollectionController as AdminCollectionController;
 use App\Http\Controllers\Admin\PublicationCategoryController as AdminPublicationCategoryController;
 use App\Http\Controllers\Admin\PublicationController as AdminPublicationController;
+use App\Http\Controllers\Admin\EventCategoryController as AdminEventCategoryController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\EventLocationController as AdminEventLocationController;
+use App\Http\Controllers\Admin\ProfileSectionController as AdminProfileSectionController;
+use App\Http\Controllers\Admin\VisionMissionController as AdminVisionMissionController;
+use App\Http\Controllers\Admin\StructureSectionController as AdminStructureSectionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -21,6 +27,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\StructureController;
+use App\Models\StructureSection;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,6 +44,7 @@ Route::middleware(['unique.visitor'])->group(function () {
     Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('news.show');
 
     Route::get('/kegiatan', [ActivityController::class, 'index'])->name('activity');
+    Route::get('/kegiatan/{slug}', [ActivityController::class, 'show'])->name('activity.show');
 
     Route::get('/koleksi', [CollectionController::class, 'index'])->name('collection');
     Route::get('/koleksi/{slug}', [CollectionController::class, 'show'])->name('collection.show');
@@ -77,6 +85,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/service-section', [AdminServiceSectionController::class, 'index'])->name('admin.service-section.index');
         Route::put('/service-section/update', [AdminServiceSectionController::class, 'update'])->name('admin.service-section.update');
 
+        Route::get('/profile-section', [AdminProfileSectionController::class, 'index'])->name('admin.profile-section.index');
+        Route::put('/profile-section/update', [AdminProfileSectionController::class, 'update'])->name('admin.profile-section.update');
+
+        Route::get('/vision-mission-section', [AdminVisionMissionController::class, 'index'])->name('admin.vision-mission-section.index');
+        Route::put('/vision-mission-section/update', [AdminVisionMissionController::class, 'update'])->name('admin.vision-mission-section.update');
+
+        Route::get('/structure-section', [AdminStructureSectionController::class, 'index'])->name('admin.structure-section.index');
+        Route::put('/structure-section/update', [AdminStructureSectionController::class, 'update'])->name('admin.structure-section.update');
 
         Route::get('/banners', [AdminBannerController::class, 'index'])->name('admin.banners.index');
         Route::post('/banners/store', [AdminBannerController::class, 'store'])->name('admin.banners.store');
@@ -98,10 +114,25 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/news/update', [AdminNewsController::class, 'update'])->name('admin.news.update');
         Route::delete('/news/remove', [AdminNewsController::class, 'destroy'])->name('admin.news.remove');
 
+        Route::get('/events', [AdminEventController::class, 'index'])->name('admin.events.index');
+        Route::post('/events/store', [AdminEventController::class, 'store'])->name('admin.events.store');
+        Route::put('/events/update', [AdminEventController::class, 'update'])->name('admin.events.update');
+        Route::delete('/events/remove', [AdminEventController::class, 'destroy'])->name('admin.events.remove');
+
         Route::get('/collection-categories', [AdminCollectionCategoryController::class, 'index'])->name('admin.collection-categories.index');
         Route::post('/collection-categories/store', [AdminCollectionCategoryController::class, 'store'])->name('admin.collection-categories.store');
         Route::put('/collection-categories/update', [AdminCollectionCategoryController::class, 'update'])->name('admin.collection-categories.update');
         Route::delete('/collection-categories/remove', [AdminCollectionCategoryController::class, 'destroy'])->name('admin.collection-categories.remove');
+
+        Route::get('/event-categories', [AdminEventCategoryController::class, 'index'])->name('admin.event-categories.index');
+        Route::post('/event-categories/store', [AdminEventCategoryController::class, 'store'])->name('admin.event-categories.store');
+        Route::put('/event-categories/update', [AdminEventCategoryController::class, 'update'])->name('admin.event-categories.update');
+        Route::delete('/event-categories/remove', [AdminEventCategoryController::class, 'destroy'])->name('admin.event-categories.remove');
+
+        Route::get('/event-locations', [AdminEventLocationController::class, 'index'])->name('admin.event-locations.index');
+        Route::post('/event-locations/store', [AdminEventLocationController::class, 'store'])->name('admin.event-locations.store');
+        Route::put('/event-locations/update', [AdminEventLocationController::class, 'update'])->name('admin.event-locations.update');
+        Route::delete('/event-locations/remove', [AdminEventLocationController::class, 'destroy'])->name('admin.event-locations.remove');
 
         Route::get('/publication-categories', [AdminPublicationCategoryController::class, 'index'])->name('admin.publication-categories.index');
         Route::post('/publication-categories/store', [AdminPublicationCategoryController::class, 'store'])->name('admin.publication-categories.store');

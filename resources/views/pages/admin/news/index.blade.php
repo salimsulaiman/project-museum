@@ -66,23 +66,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($news as $index => $news)
+                @foreach ($news as $index => $item)
                     <tr>
                         <th>{{ $index + 1 }}</th>
-                        <td>{{ $news->title }}</td>
-                        <td>{{ $news->slug }}</td>
+                        <td>{{ $item->title }}</td>
+                        <td>{{ $item->slug }}</td>
                         <td>
                             <div style="width: 80px; height: 80px; overflow: hidden; border-radius: 8px;">
-                                <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}"
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
                                     style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                         </td>
-                        <td>{{ Str::limit($news->summary, 100, '...') }}</td>
+                        <td>{{ Str::limit($item->summary, 100, '...') }}</td>
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#updateNews{{ $news->id }}">Edit</button>
-                                <div class="modal fade" id="updateNews{{ $news->id }}" tabindex="-1"
+                                    data-bs-target="#updateNews{{ $item->id }}">Edit</button>
+                                <div class="modal fade" id="updateNews{{ $item->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-xl">
                                         <div class="modal-content">
@@ -98,19 +98,19 @@
                                                 @csrf
                                                 @method('put')
                                                 <div class="modal-body px-4">
-                                                    <input type="hidden" name="id" value="{{ $news->id }}">
+                                                    <input type="hidden" name="id" value="{{ $item->id }}">
                                                     <div class="mb-3">
                                                         <label for="title" class="form-label">Judul</label>
                                                         <input type="text" required id="title" name="title"
                                                             class="form-control"
-                                                            value="{{ old('title', $news->title) }}">
+                                                            value="{{ old('title', $item->title) }}">
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="image" class="form-label">Gambar</label>
-                                                        @if ($news->image)
+                                                        @if ($item->image)
                                                             <div class="mb-2">
-                                                                <img src="{{ asset('storage/' . $news->image) }}"
+                                                                <img src="{{ asset('storage/' . $item->image) }}"
                                                                     alt="Preview"
                                                                     style="max-width: 150px; border-radius: 4px;">
                                                             </div>
@@ -125,23 +125,23 @@
                                                         <label for="summary" class="form-label">Summary</label>
                                                         <input type="text" required id="summary" name="summary"
                                                             class="form-control"
-                                                            value="{{ old('summary', $news->summary) }}">
+                                                            value="{{ old('summary', $item->summary) }}">
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="content" class="form-label">Konten</label>
                                                         <div class="quill-editor" style="height: 250px;"
                                                             data-target="content-update">
-                                                            {!! old('content', $news->content) !!}
+                                                            {!! old('content', $item->content) !!}
                                                         </div>
                                                         <input type="hidden" name="content" id="content-update"
-                                                            value="{{ old('content', $news->content) }}">
+                                                            value="{{ old('content', $item->content) }}">
                                                     </div>
 
                                                     <div class="mb-3 form-check">
                                                         <input type="checkbox" class="form-check-input" id="is_publish"
                                                             name="is_publish" value="1"
-                                                            {{ old('is_publish', $news->is_publish) ? 'checked' : '' }}>
+                                                            {{ old('is_publish', $item->is_publish) ? 'checked' : '' }}>
                                                         <label class="form-check-label" for="is_publish">Publish</label>
                                                     </div>
 
@@ -156,8 +156,8 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteNews{{ $news->id }}">Hapus</button>
-                                <div class="modal fade" id="deleteNews{{ $news->id }}" tabindex="-1"
+                                    data-bs-target="#deleteNews{{ $item->id }}">Hapus</button>
+                                <div class="modal fade" id="deleteNews{{ $item->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -174,7 +174,7 @@
                                                 <div class="modal-body px-4">
                                                     <p class="py-4">Apakah anda yakin akan menghapus data ini?</p>
                                                     <input type="hidden" name="id" id="id"
-                                                        value="{{ $news->id }}">
+                                                        value="{{ $item->id }}">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"

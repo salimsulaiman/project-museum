@@ -16,12 +16,13 @@
 
         <!-- Struktur Organisasi -->
         <div class="main-content flex-grow-1">
-            <h3 class="mb-4 text-center">STRUKTUR ORGANISASI MUSEUM MARITIM INDONESIA</h3>
+            <h3 class="mb-4 text-center">{{ $structure->title }}</h3>
 
             <!-- Foto Struktur Organisasi -->
             <div class="text-center">
-                <img src="{{ asset('images/strukturorganisasi.jpg') }}" alt="Struktur Organisasi Museum Maritim Indonesia"
-                    class="img-fluid" style="max-height: 600px; object-fit: contain;">
+                <img src="{{ $structure && $structure->image ? asset('storage/' . $structure->image) : asset('images/strukturorganisasi.jpg') }}"
+                    alt="Struktur Organisasi Museum Maritim Indonesia" class="img-fluid"
+                    style="max-height: 600px; object-fit: contain;">
             </div>
         </div>
 

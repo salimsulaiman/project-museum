@@ -1,5 +1,5 @@
 @extends('layout.admin.app')
-@section('title', 'Video Streaming')
+@section('title', 'Publication')
 @section('content')
     <div>
         <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addPublication">Tambah
