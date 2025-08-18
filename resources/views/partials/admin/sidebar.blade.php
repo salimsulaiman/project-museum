@@ -4,7 +4,7 @@
      <div>
          <div class="brand-logo d-flex align-items-center justify-content-between">
              <a href="{{ route('admin.dashboard.index') }}" class="text-nowrap logo-img">
-                 <img src="{{ asset('./images/logos/dark-logo.svg') }}" width="180" alt="" />
+                 <img src="{{ asset('images/logo.png') }}" width="180" alt="" />
              </a>
              <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                  <i class="ti ti-x fs-8"></i>
@@ -29,22 +29,6 @@
                      <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                      <span class="hide-menu">DATA</span>
                  </li>
-                 {{-- <li class="sidebar-item">
-                     <a class="sidebar-link" href="/users" aria-expanded="false">
-                         <span>
-                             <i class="fas fa-user"></i>
-                         </span>
-                         <span class="hide-menu">User</span>
-                     </a>
-                 </li>
-                 <li class="sidebar-item">
-                     <a class="sidebar-link" href="/transactions" aria-expanded="false">
-                         <span>
-                             <i class="fas fa-wallet"></i>
-                         </span>
-                         <span class="hide-menu">Transaksi</span>
-                     </a>
-                 </li> --}}
                  <li class="sidebar-item">
                      <a class="sidebar-link" href="javascript:void(0)" data-toggle="collapse"
                          data-target="#section-submenu" aria-expanded="false" style="position: relative;">
@@ -53,53 +37,57 @@
                          <i class="fa fa-caret-down pull-right arrow-right"></i>
                      </a>
                      <ul id="section-submenu" class="collapse first-level" style="padding-left: 20px;">
+
                          <li class="sidebar-item">
                              <a href="{{ route('admin.navbar-section.index') }}" class="sidebar-link">
-                                 <span>
-                                     <i class="fa fa-bars"></i>
-                                 </span>
+                                 <span><i class="fa fa-bars"></i></span>
                                  <span class="hide-menu">Navbar</span>
                              </a>
                          </li>
+
+                         <li class="sidebar-item">
+                             <a href="{{ route('admin.footer-section.index') }}" class="sidebar-link">
+                                 <span><i class="fa fa-ellipsis-h"></i></span>
+                                 <span class="hide-menu">Footer</span>
+                             </a>
+                         </li>
+
                          <li class="sidebar-item">
                              <a href="{{ route('admin.service-section.index') }}" class="sidebar-link">
-                                 <span>
-                                     <i class="fa fa-bars"></i>
-                                 </span>
+                                 <span><i class="fa fa-cogs"></i></span>
                                  <span class="hide-menu">Layanan</span>
                              </a>
                          </li>
+
                          <li class="sidebar-item">
                              <a href="{{ route('admin.profile-section.index') }}" class="sidebar-link">
-                                 <span>
-                                     <i class="fa fa-bars"></i>
-                                 </span>
+                                 <span><i class="fa fa-user"></i></span>
                                  <span class="hide-menu">Profil</span>
                              </a>
                          </li>
+
                          <li class="sidebar-item">
                              <a href="{{ route('admin.vision-mission-section.index') }}" class="sidebar-link">
-                                 <span>
-                                     <i class="fa fa-bars"></i>
-                                 </span>
+                                 <span><i class="fa fa-flag"></i></span>
                                  <span class="hide-menu">Visi & Misi</span>
                              </a>
                          </li>
+
                          <li class="sidebar-item">
                              <a href="{{ route('admin.structure-section.index') }}" class="sidebar-link">
-                                 <span>
-                                     <i class="fa fa-bars"></i>
-                                 </span>
+                                 <span><i class="fa fa-sitemap"></i></span>
                                  <span class="hide-menu">Struktur</span>
                              </a>
                          </li>
+
                      </ul>
                  </li>
+
 
                  <li class="sidebar-item">
                      <a class="sidebar-link" href="javascript:void(0)" data-toggle="collapse"
                          data-target="#collection-submenu" aria-expanded="false" style="position: relative;">
-                         <i class="fa fa-tasks"></i>
+                         <i class="fa fa-archive"></i>
                          <span class="hide-menu">Koleksi</span>
                          <i class="fa fa-caret-down pull-right arrow-right"></i>
                      </a>
@@ -107,7 +95,7 @@
                          <li class="sidebar-item">
                              <a href="{{ route('admin.collection-categories.index') }}" class="sidebar-link">
                                  <span>
-                                     <i class="fa fa-bars"></i>
+                                     <i class="fa fa-tags"></i>
                                  </span>
                                  <span class="hide-menu">Kategori</span>
                              </a>
@@ -115,7 +103,7 @@
                          <li class="sidebar-item">
                              <a href="{{ route('admin.collections.index') }}" class="sidebar-link">
                                  <span>
-                                     <i class="fa fa-bars"></i>
+                                     <i class="fa fa-archive"></i>
                                  </span>
                                  <span class="hide-menu">Koleksi</span>
                              </a>
@@ -123,18 +111,19 @@
                      </ul>
                  </li>
 
+
                  <li class="sidebar-item">
                      <a class="sidebar-link" href="javascript:void(0)" data-toggle="collapse"
-                         data-target="#collection-submenu" aria-expanded="false" style="position: relative;">
-                         <i class="fa fa-tasks"></i>
+                         data-target="#event-submenu" aria-expanded="false" style="position: relative;">
+                         <i class="fa fa-calendar"></i>
                          <span class="hide-menu">Event</span>
                          <i class="fa fa-caret-down pull-right arrow-right"></i>
                      </a>
-                     <ul id="collection-submenu" class="collapse first-level" style="padding-left: 20px;">
+                     <ul id="event-submenu" class="collapse first-level" style="padding-left: 20px;">
                          <li class="sidebar-item">
                              <a href="{{ route('admin.event-categories.index') }}" class="sidebar-link">
                                  <span>
-                                     <i class="fa fa-bars"></i>
+                                     <i class="fa fa-tags"></i>
                                  </span>
                                  <span class="hide-menu">Kategori</span>
                              </a>
@@ -142,7 +131,7 @@
                          <li class="sidebar-item">
                              <a href="{{ route('admin.event-locations.index') }}" class="sidebar-link">
                                  <span>
-                                     <i class="fa fa-bars"></i>
+                                     <i class="fa fa-map-marker"></i>
                                  </span>
                                  <span class="hide-menu">Lokasi</span>
                              </a>
@@ -150,7 +139,7 @@
                          <li class="sidebar-item">
                              <a href="{{ route('admin.events.index') }}" class="sidebar-link">
                                  <span>
-                                     <i class="fa fa-bars"></i>
+                                     <i class="fa fa-calendar"></i>
                                  </span>
                                  <span class="hide-menu">Event</span>
                              </a>
@@ -158,10 +147,11 @@
                      </ul>
                  </li>
 
+
                  <li class="sidebar-item">
                      <a class="sidebar-link" href="javascript:void(0)" data-toggle="collapse"
                          data-target="#publication-submenu" aria-expanded="false" style="position: relative;">
-                         <i class="fa fa-tasks"></i>
+                         <i class="fa fa-book"></i>
                          <span class="hide-menu">Publikasi</span>
                          <i class="fa fa-caret-down pull-right arrow-right"></i>
                      </a>
@@ -169,7 +159,7 @@
                          <li class="sidebar-item">
                              <a href="{{ route('admin.publication-categories.index') }}" class="sidebar-link">
                                  <span>
-                                     <i class="fa fa-bars"></i>
+                                     <i class="fa fa-tags"></i>
                                  </span>
                                  <span class="hide-menu">Kategori</span>
                              </a>
@@ -177,7 +167,7 @@
                          <li class="sidebar-item">
                              <a href="{{ route('admin.publications.index') }}" class="sidebar-link">
                                  <span>
-                                     <i class="fa fa-bars"></i>
+                                     <i class="fa fa-file-text"></i>
                                  </span>
                                  <span class="hide-menu">Publikasi</span>
                              </a>

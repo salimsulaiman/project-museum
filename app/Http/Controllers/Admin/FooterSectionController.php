@@ -3,19 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
-use App\Models\Category;
-use App\Models\Collection;
-use App\Models\CollectionCategory;
-use App\Models\Event;
-use App\Models\News;
-use App\Models\Publication;
-use App\Models\Record;
-use App\Models\VideoStreaming;
-use App\Models\Visitor;
+use App\Models\FooterSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class DashboardController extends Controller
+class FooterSectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,20 +16,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
-        $counts = [
-            'Banners'               => Banner::count(),
-            'Categories'            => Category::count(),
-            'Collections'           => Collection::count(),
-            'Events'                => Event::count(),
-            'News'                  => News::count(),
-            'Publications'          => Publication::count(),
-            'Video Streaming'       => VideoStreaming::count(),
-            'Visitors'              => Visitor::count(),
-        ];
-
-        return view('pages.admin.dashboard.index',compact('counts'), [
-            'title' => 'Dashboard'
+          $footerSection = FooterSection::with('details')->first();
+        return view('pages.admin.footer-section.index', compact('footerSection'), [
+            'title' => 'Footer Section'
         ]);
     }
 
@@ -91,10 +72,39 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request)
+{
+    $request->validate([
+        'id' => 'required|exists:footer_sections,id',
+        'title' => 'required|string|max:255',
+        'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'address' => 'nullable|string|max:500',
+    ]);
+
+    $footerSection = FooterSection::findOrFail($request->id);
+
+    // Siapkan data update
+    $dataUpdate = [
+        'title'   => $request->title,
+        'address' => $request->address,
+    ];
+
+    // Jika ada logo baru
+    if ($request->hasFile('logo')) {
+        // Hapus logo lama jika ada
+        if ($footerSection->logo && Storage::exists('public/' . $footerSection->logo)) {
+            Storage::delete('public/' . $footerSection->logo);
+        }
+
+        // Upload logo baru
+        $dataUpdate['logo'] = $request->file('logo')->store('footer_logos', 'public');
     }
+
+    // Update ke database
+    $footerSection->update($dataUpdate);
+
+    return redirect()->back()->with('successUpdate', 'Footer Section berhasil diperbarui.');
+}
 
     /**
      * Remove the specified resource from storage.

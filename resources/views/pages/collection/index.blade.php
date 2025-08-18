@@ -8,21 +8,25 @@
         <div class="row">
             <!-- Kolom kiri -->
             <div class="col-md-3">
-                <select class="form-select mb-2">
-                    <option selected disabled>Klasifikasi Koleksi</option>
-                    @foreach ($categories as $category)
-                        <option>{{ $category->name }}</option>
-                    @endforeach
-                </select>
+                <form action="{{ route('collection.search') }}" method="GET">
+                    <select class="form-select mb-2" name="category" onchange="this.form.submit()">
+                        <option value="">Klasifikasi Koleksi</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
             </div>
 
             <!-- Kolom kanan -->
             <div class="col-md-9">
                 <!-- Search -->
-                <div class="d-flex justify-content-end mb-3">
-                    <input type="text" class="form-control w-25" placeholder="search">
-                </div>
-
+                <form action="{{ route('collection.search') }}" method="GET" class="d-flex justify-content-end mb-3">
+                    <input type="text" name="q" value="{{ request('q') }}" class="form-control w-25"
+                        placeholder="Cari koleksi...">
+                </form>
                 <!-- Paragraf -->
                 <p class="text-center text-muted">
                     Museum Maritim Indonesia saat ini memiliki total 1400-an koleksi, baik asli maupun replika.

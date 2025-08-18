@@ -54,7 +54,7 @@
 
                             <div class="mb-3">
                                 <label for="url" class="form-label">URL</label>
-                                <input type="url" id="url" name="url" class="form-control"
+                                <input type="text" id="url" name="url" class="form-control"
                                     value="{{ old('url') }}" required>
                             </div>
                         </div>

@@ -13,22 +13,16 @@
                   <li class="nav-item dropdown">
                       <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                           data-bs-toggle="dropdown" aria-expanded="false">
-                          <img src="{{ asset('./images/profile/user-1.jpg') }}" alt="" width="35"
-                              height="35" class="rounded-circle">
+                          <img src="{{ Auth::user()->profile ? asset('storage/' . Auth::user()->profile) : asset('images/profile/user-1.jpg') }}"
+                              alt="Profile" width="35" height="35" class="rounded-circle">
                       </a>
+
                       <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                           <div class="message-body">
-                              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                              <a href="{{ route('account.edit') }}"
+                                  class="d-flex align-items-center gap-2 dropdown-item">
                                   <i class="ti ti-user fs-6"></i>
                                   <p class="mb-0 fs-3">{{ Auth::user()->name }}</p>
-                              </a>
-                              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                  <i class="ti ti-mail fs-6"></i>
-                                  <p class="mb-0 fs-3">My Account</p>
-                              </a>
-                              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                  <i class="ti ti-list-check fs-6"></i>
-                                  <p class="mb-0 fs-3">My Task</p>
                               </a>
                               <form action="{{ route('logout') }}" method="POST" class="mx-3">
                                   @csrf

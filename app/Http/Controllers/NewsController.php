@@ -18,6 +18,26 @@ class NewsController extends Controller
         return view('pages.news.index', compact('news'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+
+        // Jika query kosong, redirect ke halaman berita
+        if (empty($query)) {
+            return redirect()->route('news');
+        }
+
+        $news = News::where('title', 'like', "%{$query}%")
+                    ->orWhere('summary', 'like', "%{$query}%")
+                    ->orWhere('content', 'like', "%{$query}%")
+                    ->latest()
+                    ->paginate(8)
+                    ->withQueryString();
+
+        return view('pages.news.search', compact('news', 'query'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

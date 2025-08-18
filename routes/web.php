@@ -19,6 +19,9 @@ use App\Http\Controllers\Admin\EventLocationController as AdminEventLocationCont
 use App\Http\Controllers\Admin\ProfileSectionController as AdminProfileSectionController;
 use App\Http\Controllers\Admin\VisionMissionController as AdminVisionMissionController;
 use App\Http\Controllers\Admin\StructureSectionController as AdminStructureSectionController;
+use App\Http\Controllers\Admin\FooterSectionController as AdminFooterSectionController;
+use App\Http\Controllers\Admin\FooterSectionDetailController as AdminFooterSectionDetailController;
+use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -41,12 +44,14 @@ Route::middleware(['unique.visitor'])->group(function () {
     Route::get('/tentang-kami', [AboutController::class, 'index'])->name('about');
 
     Route::get('/berita', [NewsController::class, 'index'])->name('news');
+    Route::get('/berita/search', [NewsController::class, 'search'])->name('news.search');
     Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('news.show');
 
     Route::get('/kegiatan', [ActivityController::class, 'index'])->name('activity');
     Route::get('/kegiatan/{slug}', [ActivityController::class, 'show'])->name('activity.show');
 
     Route::get('/koleksi', [CollectionController::class, 'index'])->name('collection');
+    Route::get('/koleksi/search', [CollectionController::class, 'search'])->name('collection.search');
     Route::get('/koleksi/{slug}', [CollectionController::class, 'show'])->name('collection.show');
 
     Route::get('/profil', [ProfileController::class, 'index'])->name('profile');
@@ -54,6 +59,7 @@ Route::middleware(['unique.visitor'])->group(function () {
     Route::get('/struktur', [StructureController::class, 'index'])->name('structure');
 
     Route::get('/publikasi', [PublicationController::class, 'index'])->name('publication');
+    Route::get('/publikasi/search', [PublicationController::class, 'search'])->name('publication.search');
     Route::get('/publikasi/{slug}', [PublicationController::class, 'show'])->name('publication.show');
 });
 
@@ -74,6 +80,11 @@ Route::middleware(['auth'])->group(function () {
             return redirect()->route('admin.dashboard.index');
         });
 
+       
+        Route::get('/account', [AdminAccountController::class, 'edit'])->name('account.edit');
+        Route::put('/account/profile', [AdminAccountController::class, 'updateProfile'])->name('account.updateProfile');
+        Route::put('/account/password', [AdminAccountController::class, 'updatePassword'])->name('account.updatePassword');
+
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index');
 
         Route::get('/navbar-section', [AdminNavbarSectionController::class, 'index'])->name('admin.navbar-section.index');
@@ -81,6 +92,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/navbar-links/store', [AdminNavbarLinkController::class, 'store'])->name('admin.navbar-links.store');
         Route::put('/navbar-links/update', [AdminNavbarLinkController::class, 'update'])->name('admin.navbar-links.update');
         Route::delete('/navbar-links/remove', [AdminNavbarLinkController::class, 'destroy'])->name('admin.navbar-links.remove');
+
+        Route::get('/footer-section', [AdminFooterSectionController::class, 'index'])->name('admin.footer-section.index');
+        Route::put('/footer-section/update', [AdminFooterSectionController::class, 'update'])->name('admin.footer-section.update');
+        Route::post('/footer-links/store', [AdminFooterSectionDetailController::class, 'store'])->name('admin.footer-links.store');
+        Route::put('/footer-links/update', [AdminFooterSectionDetailController::class, 'update'])->name('admin.footer-links.update');
+        Route::delete('/footer-links/remove', [AdminFooterSectionDetailController::class, 'destroy'])->name('admin.footer-links.remove');
 
         Route::get('/service-section', [AdminServiceSectionController::class, 'index'])->name('admin.service-section.index');
         Route::put('/service-section/update', [AdminServiceSectionController::class, 'update'])->name('admin.service-section.update');

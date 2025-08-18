@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('admin123'), // ganti dengan password aman
             'remember_token' => Str::random(10),
+            'profile' => null,
             'role' => 'admin'
         ]);
 
@@ -34,5 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfileSectionSeeder::class);
         $this->call(VisionMissionSeeder::class);
         $this->call(StructureSectionSeeder::class);
+        $this->call(FooterSeeder::class);
     }
 }

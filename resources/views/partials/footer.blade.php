@@ -5,14 +5,11 @@
              <!-- Kiri: Info Museum -->
              <div class="col-md-4 mb-4">
                  <div class="d-flex">
-                     <img src="https://via.placeholder.com/80x60" alt="Museum" class="me-3"
-                         style="width: 80px; height: 60px;">
+                     <img src="{{ asset('storage/' . $footerSection->logo) }}" alt="Museum" class="me-3 p-2 rounded"
+                         style="width: 80px; height: auto; object-fit: contain; filter: brightness(0) invert(1);">
                      <div>
-                         <strong>Museum Maritim Indonesia</strong><br>
-                         Jl. Pelabuhan No. 9<br>
-                         Tanjung Priok<br>
-                         Jakarta Utara<br>
-                         DKI Jakarta
+                         <strong>{{ $footerSection->title }}</strong><br>
+                         <p>{{ $footerSection->address }}</p>
                      </div>
                  </div>
              </div>
@@ -21,9 +18,10 @@
              <div class="col-md-3 mb-4">
                  <h6><strong>Link Terkait</strong></h6>
                  <ul class="list-unstyled">
-                     <li><a href="#" class="text-white text-decoration-none">PELINDO.CO.ID</a></li>
-                     <li><a href="#" class="text-white text-decoration-none">PMLI.CO.ID</a></li>
-                     <li><a href="#" class="text-white text-decoration-none">VIRTUAL MUSEUM</a></li>
+                     @foreach ($footerSection->details as $link)
+                         <li><a href="{{ $link->href }}"
+                                 class="text-white text-decoration-none">{{ $link->navigation }}</a></li>
+                     @endforeach
                  </ul>
              </div>
 

@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('footer_section_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('hp');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('profile')->nullable();
-            $table->rememberToken();
+            $table->foreignId('footer_section_id')->constrained('footer_sections')->onDelete('cascade');
+            $table->string('navigation');
+            $table->string('href');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('footer_section_details');
     }
 };

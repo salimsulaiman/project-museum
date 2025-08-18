@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\FooterSection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\NavbarSection;
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
         View::composer('partials.header', function ($view) {
             $view->with('navbarSection', NavbarSection::with('links')->first());
         });
+
+        View::composer('partials.footer', function ($view) {
+        $view->with('footerSection', FooterSection::with('details')->first());
+    });
 
         Paginator::useBootstrapFive();
     }

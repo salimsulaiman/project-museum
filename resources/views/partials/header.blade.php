@@ -8,11 +8,17 @@
                  <span class="navbar-toggler-icon"></span>
              </button>
              <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                 @php
+                     function setActive($href)
+                     {
+                         $path = ltrim($href, '/'); // hapus slash depan aja
+                         return request()->is($path) || request()->is($path . '/*') ? 'active fw-bold' : '';
+                     }
+                 @endphp
                  <ul class="navbar-nav mb-2 mb-lg-0">
                      @foreach ($navbarSection->links as $link)
                          <li class="nav-item">
-                             <a class="nav-link text-white {{ request()->is(trim($link->href, '/')) ? 'active fw-bold' : '' }}"
-                                 href="{{ url($link->href) }}">
+                             <a class="nav-link text-white {{ setActive($link->href) }}" href="{{ url($link->href) }}">
                                  {{ $link->navigation }}
                              </a>
                          </li>

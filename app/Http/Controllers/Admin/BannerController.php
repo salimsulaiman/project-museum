@@ -47,10 +47,8 @@ class BannerController extends Controller
             'is_active' => 'nullable|boolean',
         ]);
 
-        // Upload gambar
         $imagePath = $request->file('image')->store('banner_images', 'public');
 
-        // Simpan data banner
         Banner::create([
             'title' => $validated['title'],
             'image' => $imagePath,
@@ -102,25 +100,21 @@ class BannerController extends Controller
 
         $banner = Banner::findOrFail($request->id);
 
-        // Siapkan data update
         $dataUpdate = [
             'title' => $request->title,
             'description' => $request->description,
             'is_active' => $request->has('is_active') ? 1 : 0,
         ];
 
-        // Jika ada gambar baru
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
+           
             if ($banner->image && Storage::exists('public/' . $banner->image)) {
                 Storage::delete('public/' . $banner->image);
             }
 
-            // Upload gambar baru
             $dataUpdate['image'] = $request->file('image')->store('banner_images', 'public');
         }
 
-        // Update ke database
         $banner->update($dataUpdate);
 
         return redirect()->back()->with('successUpdate', 'Banner berhasil diperbarui.');

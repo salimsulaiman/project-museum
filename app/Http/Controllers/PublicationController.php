@@ -23,6 +23,30 @@ class PublicationController extends Controller
         return view('pages.publication.index', compact('categories', 'publications', 'latestPublication'));
     }
 
+    public function search(Request $request)
+    {
+        $query = Publication::with('category');
+
+        // Filter kategori
+        if ($request->filled('category')) {
+            $query->where('publication_category_id', $request->category);
+        }
+
+        // Filter pencarian
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('content', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $publications = $query->latest()->paginate(6)->appends($request->query());
+        $categories = PublicationCategory::all();
+
+        return view('pages.publication.search', compact('publications', 'categories'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

@@ -20,6 +20,32 @@ class CollectionController extends Controller
         return view('pages.collection.index', compact('categories', 'collections'));
     }
 
+   public function search(Request $request)
+    {
+      $query = $request->input('q');
+    $categoryId = $request->input('category');
+
+   $collections = Collection::query()
+    ->when($query, function ($q) use ($query) {
+        $q->where('name', 'like', "%{$query}%");
+    })
+    ->when($categoryId, function ($q) use ($categoryId) {
+        $q->where('collection_category_id', $categoryId);
+    })
+    ->latest()
+    ->paginate(9);
+
+$collections->appends([
+    'q' => $query,
+    'category' => $categoryId,
+]);
+
+    $categories = CollectionCategory::all();
+
+    return view('pages.collection.search', compact('collections', 'categories', 'query', 'categoryId'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

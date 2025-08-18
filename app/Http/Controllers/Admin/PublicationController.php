@@ -63,7 +63,7 @@ class PublicationController extends Controller
             'publication_category_id'  => 'required|exists:publication_categories,id',
             'author'                   => 'required|string|max:255',
             'content'                  => 'required|string',
-            'url'                      => 'required|url',
+            'url'                      => 'required',
             'image'                    => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
@@ -123,7 +123,7 @@ class PublicationController extends Controller
             'publication_category_id' => 'required|exists:publication_categories,id',
             'author' => 'required|string|max:255',
             'content' => 'required|string',
-            'url' => 'required|url',
+            'url' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
