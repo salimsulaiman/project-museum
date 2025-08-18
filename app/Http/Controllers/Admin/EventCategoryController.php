@@ -60,7 +60,6 @@ class EventCategoryController extends Controller
 
         $slug = $this->generateUniqueSlug($validated['name']);
 
-        // Simpan data banner
         EventCategory::create([
             'name' => $validated['name'],
             'slug' => $slug,
@@ -108,7 +107,6 @@ class EventCategoryController extends Controller
         $category = EventCategory::findOrFail($request->id);
 
 
-        // Siapkan data update
         $dataUpdate = [
             'name' => $request->name,
         ];
@@ -117,7 +115,6 @@ class EventCategoryController extends Controller
             $dataUpdate['slug'] = $this->generateUniqueSlug($request->name);
         }
 
-        // Update ke database
         $category->update($dataUpdate);
 
         return redirect()->back()->with('successUpdate', 'Kategori berhasil diperbarui.');
@@ -133,7 +130,6 @@ class EventCategoryController extends Controller
     {
         $id = $request->id;
 
-        // Ambil kategori
         $category = EventCategory::findOrFail($id);
 
         $category->delete();

@@ -5,7 +5,8 @@
              <!-- Kiri: Info Museum -->
              <div class="col-md-4 mb-4">
                  <div class="d-flex">
-                     <img src="{{ asset('storage/' . $footerSection->logo) }}" alt="Museum" class="me-3 p-2 rounded"
+                     <img src="{{ $footerSection->logo ? asset('storage/' . $footerSection->logo) : asset('images/logo.png') }}"
+                         alt="Museum" class="me-3 p-2 rounded"
                          style="width: 80px; height: auto; object-fit: contain; filter: brightness(0) invert(1);">
                      <div>
                          <strong>{{ $footerSection->title }}</strong><br>

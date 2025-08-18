@@ -83,24 +83,19 @@ class FooterSectionController extends Controller
 
     $footerSection = FooterSection::findOrFail($request->id);
 
-    // Siapkan data update
     $dataUpdate = [
         'title'   => $request->title,
         'address' => $request->address,
     ];
 
-    // Jika ada logo baru
     if ($request->hasFile('logo')) {
-        // Hapus logo lama jika ada
         if ($footerSection->logo && Storage::exists('public/' . $footerSection->logo)) {
             Storage::delete('public/' . $footerSection->logo);
         }
 
-        // Upload logo baru
         $dataUpdate['logo'] = $request->file('logo')->store('footer_logos', 'public');
     }
 
-    // Update ke database
     $footerSection->update($dataUpdate);
 
     return redirect()->back()->with('successUpdate', 'Footer Section berhasil diperbarui.');

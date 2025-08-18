@@ -1,5 +1,5 @@
 @extends('layout.admin.app')
-@section('title', 'Vision & Mission Section')
+@section('title', 'Structure Section')
 @section('content')
     <div>
         <div class="d-flex flex-column gap-4 mb-4 w-100">

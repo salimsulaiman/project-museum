@@ -31,21 +31,21 @@
                         <div class="modal-body px-4">
                             <input type="hidden" name="id" value="{{ $serviceSection->id }}">
 
-                            {{-- Title --}}
+
                             <div class="mb-3">
                                 <label for="title" class="form-label">Judul</label>
                                 <input type="text" id="title" name="title" class="form-control"
                                     value="{{ old('title', $serviceSection->title) }}" required>
                             </div>
 
-                            {{-- Day --}}
+
                             <div class="mb-3">
                                 <label for="day" class="form-label">Hari</label>
                                 <input type="text" id="day" name="day" class="form-control"
                                     value="{{ old('day', $serviceSection->day) }}" required>
                             </div>
 
-                            {{-- Time --}}
+
                             <div class="mb-3">
                                 <label for="time" class="form-label">Waktu</label>
                                 <input type="text" id="time" name="time" class="form-control"
@@ -61,7 +61,7 @@
                                     value="{{ old('procedure', $serviceSection->procedure) }}">
                             </div>
 
-                            {{-- Thumbnail --}}
+
                             <div class="mb-3">
                                 <label for="thumbnail" class="form-label">Thumbnail</label>
                                 @if ($serviceSection->thumbnail)
@@ -210,7 +210,7 @@
                 }
             });
 
-            // Set initial content
+
             if (hiddenInput && hiddenInput.value) {
                 quill.root.innerHTML = hiddenInput.value;
             }
@@ -222,7 +222,7 @@
         });
 
 
-        // Saat form submit, isi hidden input sesuai konten Quill
+
         document.querySelectorAll('form').forEach(function(form) {
             form.addEventListener('submit', function() {
                 quillEditors.forEach(function(item) {

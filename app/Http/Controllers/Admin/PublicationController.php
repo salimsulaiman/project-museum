@@ -67,12 +67,10 @@ class PublicationController extends Controller
             'image'                    => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // Upload gambar
         $imagePath = $request->file('image')->store('publication_images', 'public');
 
         $slug = $this->generateUniqueSlug($validated['title']);
 
-        // Simpan data publikasi
         Publication::create([
             'title'                   => $validated['title'],
             'slug'                    => $slug,

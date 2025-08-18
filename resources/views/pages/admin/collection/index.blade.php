@@ -174,7 +174,7 @@
                                                 <input type="hidden" name="id" value="{{ $collection->id }}">
 
                                                 <div class="modal-body px-4">
-                                                    {{-- Nama --}}
+
                                                     <div class="mb-3">
                                                         <label for="name" class="form-label">Nama</label>
                                                         <input type="text" id="name" name="name"
@@ -182,7 +182,7 @@
                                                             value="{{ old('name', $collection->name) }}" required>
                                                     </div>
 
-                                                    {{-- Thumbnail --}}
+
                                                     <div class="mb-3">
                                                         <label for="thumbnail" class="form-label">Thumbnail</label>
                                                         @if ($collection->thumbnail)
@@ -198,7 +198,7 @@
                                                             thumbnail.</small>
                                                     </div>
 
-                                                    {{-- Nomor Inventaris --}}
+
                                                     <div class="mb-3">
                                                         <label for="no_inv" class="form-label">Nomor Inventaris</label>
                                                         <input type="text" id="no_inv" name="no_inv"
@@ -206,7 +206,7 @@
                                                             value="{{ old('no_inv', $collection->no_inv) }}" required>
                                                     </div>
 
-                                                    {{-- Kategori --}}
+
                                                     <div class="mb-3">
                                                         <label for="collection_category_id" class="form-label">Kategori
                                                             Koleksi</label>
@@ -222,7 +222,7 @@
                                                         </select>
                                                     </div>
 
-                                                    {{-- Material, Warna, Ukuran, dll --}}
+
                                                     <div class="mb-3">
                                                         <label for="material" class="form-label">Material</label>
                                                         <input type="text" id="material" name="material"
@@ -277,11 +277,11 @@
                                                         <textarea id="function" name="function" class="form-control" required>{{ old('function', $collection->function) }}</textarea>
                                                     </div>
 
-                                                    {{-- Multiple Images --}}
+
                                                     <div class="mb-3 images-section">
                                                         <label class="form-label fw-bold">Gambar Tambahan</label>
 
-                                                        {{-- Gambar lama --}}
+
                                                         @if ($collection->images && count($collection->images))
                                                             <div class="mb-3 row g-3">
                                                                 @foreach ($collection->images as $image)
@@ -292,7 +292,7 @@
                                                                                 alt="Image" class="w-100 h-100"
                                                                                 style="object-fit: cover;">
 
-                                                                            {{-- Tombol hapus (centang delete_images[]) --}}
+
                                                                             <label
                                                                                 class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 p-1 rounded-circle shadow-sm image-delete-toggle"
                                                                                 style="line-height: .8; cursor: pointer;">
@@ -308,7 +308,7 @@
                                                             </div>
                                                         @endif
 
-                                                        {{-- Tambah gambar baru --}}
+
                                                         <div class="images-wrapper p-3 border rounded bg-light">
                                                             <div class="input-group mb-2">
                                                                 <input type="file" name="images[]"
@@ -437,18 +437,18 @@
 @section('script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Helper: atur visibilitas tombol Hapus per-section
+
             function refreshRemoveButtons(section) {
                 const groups = section.querySelectorAll('.images-wrapper .input-group');
                 groups.forEach((g) => {
                     const btn = g.querySelector('.remove-image');
                     if (!btn) return;
-                    // Sembunyikan tombol hapus kalau hanya ada 1 baris input
+
                     btn.style.display = (groups.length > 1) ? '' : 'none';
                 });
             }
 
-            // Delegasi klik: tambah gambar baru
+
             document.addEventListener('click', function(e) {
                 const addBtn = e.target.closest('.add-image');
                 if (addBtn) {
@@ -469,7 +469,7 @@
                 }
             });
 
-            // Delegasi klik: hapus baris input gambar baru
+
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('remove-image')) {
                     const group = e.target.closest('.input-group');
@@ -481,23 +481,23 @@
                 }
             });
 
-            // Opsional: efek visual saat tanda hapus gambar lama diklik
+
             document.addEventListener('click', function(e) {
                 const toggle = e.target.closest('.image-delete-toggle');
                 if (toggle) {
                     const checkbox = toggle.querySelector('input[type="checkbox"]');
                     const card = toggle.closest('.image-card');
 
-                    // Centang input (supaya ikut terkirim)
+
                     checkbox.checked = true;
 
-                    // Tambahkan efek visual saja, tapi jangan langsung remove dari DOM
+
                     card.style.opacity = '0.5';
                     card.style.pointerEvents = 'none';
                 }
             });
 
-            // Inisialisasi awal untuk semua section yang sudah ada di DOM
+
             document.querySelectorAll('.images-section').forEach(refreshRemoveButtons);
         });
     </script>

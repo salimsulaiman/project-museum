@@ -16,14 +16,13 @@ class FooterSeeder extends Seeder
     public function run()
     {
        $sectionId = DB::table('footer_sections')->insertGetId([
-            'logo' => null, // bisa diganti path logo kalau ada
+            'logo' => null,
             'title' => 'Museum Maritim Indonesia',
             'address' => 'Jl. Pelabuhan No. 9 Tanjung Priok, Jakarta Utara, DKI Jakarta',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        // Insert ke footer_section_details
         DB::table('footer_section_details')->insert([
             [
                 'footer_section_id' => $sectionId,

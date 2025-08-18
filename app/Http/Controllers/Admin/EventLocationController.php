@@ -112,7 +112,6 @@ class EventLocationController extends Controller
         $location = EventLocation::findOrFail($request->id);
 
 
-        // Siapkan data update
         $dataUpdate = [
             'name' => $request->name,
         ];
@@ -121,18 +120,14 @@ class EventLocationController extends Controller
             $dataUpdate['slug'] = $this->generateUniqueSlug($request->name);
         }
 
-        // Jika ada gambar baru
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($location->image && Storage::exists('public/' . $location->image)) {
                 Storage::delete('public/' . $location->image);
             }
 
-            // Upload gambar baru
             $dataUpdate['image'] = $request->file('image')->store('event_location_images', 'public');
         }
 
-        // Update ke database
         $location->update($dataUpdate);
 
         return redirect()->back()->with('successUpdate', 'Lokasi berhasil diperbarui.');
@@ -148,15 +143,12 @@ class EventLocationController extends Controller
     {
         $id = $request->id;
 
-        // Ambil kategori
         $location = EventLocation::findOrFail($id);
 
-        // Hapus gambar jika ada di storage
         if ($location->image && Storage::exists('public/' . $location->image)) {
             Storage::delete('public/' . $location->image);
         }
 
-        // Hapus kategori
         $location->delete();
 
         return redirect()

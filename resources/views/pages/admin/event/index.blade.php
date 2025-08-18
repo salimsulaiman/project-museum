@@ -522,7 +522,7 @@
                 }
             });
 
-            // Set initial content
+
             if (hiddenInput && hiddenInput.value) {
                 quill.root.innerHTML = hiddenInput.value;
             }
@@ -533,7 +533,7 @@
             });
         });
 
-        // Saat form submit, isi hidden input sesuai konten Quill
+
         document.querySelectorAll('form').forEach(function(form) {
             form.addEventListener('submit', function() {
                 quillEditors.forEach(function(item) {

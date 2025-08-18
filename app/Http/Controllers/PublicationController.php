@@ -27,12 +27,10 @@ class PublicationController extends Controller
     {
         $query = Publication::with('category');
 
-        // Filter kategori
         if ($request->filled('category')) {
             $query->where('publication_category_id', $request->category);
         }
 
-        // Filter pencarian
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->search . '%')

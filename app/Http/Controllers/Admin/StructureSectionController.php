@@ -82,17 +82,12 @@ class StructureSectionController extends Controller
 
         $structureSection = StructureSection::findOrFail($request->id);
 
-        // Simpan data title
         $structureSection->title = $request->title;
 
-        // Kalau upload image baru
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($structureSection->image && Storage::exists('public/' . $structureSection->image)) {
                 Storage::delete('public/' . $structureSection->image);
             }
-
-            // Simpan gambar baru
             $path = $request->file('image')->store('structure-images', 'public');
             $structureSection->image = $path;
         }

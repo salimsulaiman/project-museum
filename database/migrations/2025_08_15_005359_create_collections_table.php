@@ -26,8 +26,8 @@ return new class extends Migration
             $table->decimal('width', 8, 2);
             $table->decimal('height', 8, 2);
             $table->string('acquisition_method');
-            $table->string('description');
-            $table->string('function');
+            $table->text('description');
+            $table->text('function');
             $table->timestamps();
         });
     }

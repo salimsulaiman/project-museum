@@ -14,19 +14,18 @@ class AuthController extends Controller
     {
         return view('register');
     }
-    // Menampilkan halaman register (resources/views/register.blade.php).Biasanya berisi form isian untuk daftar user baru.
 
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required', //name wajib diisi.
-            'email' => 'required|email|unique:users', //email wajib, format email, dan belum ada di tabel users.
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
             'hp' => 'required|regex:/^[0-9]+$/|min:10|max:15',
-            'password' => 'required|confirmed|min:6', //password wajib, minimal 6 karakter, dan harus sama dengan password_confirmation.
+            'password' => 'required|confirmed|min:6',
             'role' => 'required|in:user,admin'
-        ]);  //role hanya boleh user atau admin.
+        ]);
 
-        // Menyimpan data user ke database, dengan password yang sudah dienkripsi pakai Hash.
+        
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -35,10 +34,8 @@ class AuthController extends Controller
             'role' => $request->role,
         ]);
 
-        // Tambahkan cookie Menyimpan cookie sementara (1 menit) berisi pesan sukses.
         Cookie::queue('register_success', 'Registrasi berhasil! Silakan login.', 1);
 
-        //Setelah berhasil register, redirect ke halaman login. 
         return redirect()->route('login');
     }
 

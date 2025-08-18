@@ -60,12 +60,10 @@ class CollectionCategoryController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // Upload gambar
         $imagePath = $request->file('image')->store('collection_category_images', 'public');
 
         $slug = $this->generateUniqueSlug($validated['name']);
 
-        // Simpan data banner
         CollectionCategory::create([
             'name' => $validated['name'],
             'image' => $imagePath,
@@ -114,8 +112,6 @@ class CollectionCategoryController extends Controller
 
         $category = CollectionCategory::findOrFail($request->id);
 
-
-        // Siapkan data update
         $dataUpdate = [
             'name' => $request->name,
         ];
@@ -124,18 +120,16 @@ class CollectionCategoryController extends Controller
             $dataUpdate['slug'] = $this->generateUniqueSlug($request->name);
         }
 
-        // Jika ada gambar baru
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
+   
             if ($category->image && Storage::exists('public/' . $category->image)) {
                 Storage::delete('public/' . $category->image);
             }
 
-            // Upload gambar baru
             $dataUpdate['image'] = $request->file('image')->store('collection_category_images', 'public');
         }
 
-        // Update ke database
+     
         $category->update($dataUpdate);
 
         return redirect()->back()->with('successUpdate', 'Kategori berhasil diperbarui.');
@@ -151,15 +145,15 @@ class CollectionCategoryController extends Controller
     {
         $id = $request->id;
 
-        // Ambil kategori
+
         $category = CollectionCategory::findOrFail($id);
 
-        // Hapus gambar jika ada di storage
+ 
         if ($category->image && Storage::exists('public/' . $category->image)) {
             Storage::delete('public/' . $category->image);
         }
 
-        // Hapus kategori
+    
         $category->delete();
 
         return redirect()

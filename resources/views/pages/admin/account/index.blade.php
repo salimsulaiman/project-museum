@@ -6,7 +6,7 @@
     <div class="container-fluid">
 
         <div class="row">
-            <!-- Profile Edit -->
+
             <div class="col-lg-6 col-md-12">
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <!-- Password Edit -->
+
             <div class="col-lg-6 col-md-12">
                 <div class="card shadow-sm">
                     <div class="card-body">

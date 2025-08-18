@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Collection;
-use App\Models\CollectionCategory;
 use App\Models\Event;
 use App\Models\News;
 use App\Models\Publication;

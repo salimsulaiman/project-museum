@@ -46,10 +46,8 @@ class CategoryController extends Controller
             'url' => 'required',
         ]);
 
-        // Upload gambar
         $imagePath = $request->file('image')->store('category_images', 'public');
 
-        // Simpan data banner
         Category::create([
             'title' => $validated['title'],
             'image' => $imagePath,
@@ -99,24 +97,20 @@ class CategoryController extends Controller
 
         $category = Category::findOrFail($request->id);
 
-        // Siapkan data update
         $dataUpdate = [
             'title' => $request->title,
             'url' => $request->url,
         ];
 
-        // Jika ada gambar baru
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
+      
             if ($category->image && Storage::exists('public/' . $category->image)) {
                 Storage::delete('public/' . $category->image);
             }
 
-            // Upload gambar baru
             $dataUpdate['image'] = $request->file('image')->store('category_images', 'public');
         }
 
-        // Update ke database
         $category->update($dataUpdate);
 
         return redirect()->back()->with('successUpdate', 'Kategori berhasil diperbarui.');

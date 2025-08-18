@@ -21,7 +21,6 @@ class RecordUniqueVisitor
         $ip = $request->ip();
         $today = Carbon::today()->toDateString();
 
-        // Cek apakah IP ini sudah tercatat hari ini
         if (!Visitor::where('ip_address', $ip)
             ->where('visit_date', $today)
             ->exists()) {

@@ -17,13 +17,12 @@ class VisitorSeeder extends Seeder
     public function run(): void
     {
         $faker = \Faker\Factory::create();
-        $startDate = Carbon::now()->subYear(); // 1 tahun terakhir
+        $startDate = Carbon::now()->subYear();
 
         $data = [];
 
-        // Loop setiap hari selama 1 tahun terakhir
         for ($date = $startDate; $date->lte(Carbon::now()); $date->addDay()) {
-            // Jumlah pengunjung per hari random 5 - 20 orang
+           
             $visitorCount = rand(5, 20);
 
             for ($i = 0; $i < $visitorCount; $i++) {
@@ -36,7 +35,6 @@ class VisitorSeeder extends Seeder
             }
         }
 
-        // Insert ke database
         DB::table('visitors')->insert($data);
     }
 }

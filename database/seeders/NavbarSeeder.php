@@ -21,7 +21,7 @@ class NavbarSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        // Tambahkan beberapa link
+      
         DB::table('navbar_links')->insert([
             [
                 'navbar_section_id' => $sectionId,

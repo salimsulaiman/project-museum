@@ -50,10 +50,8 @@ class VideoStreamingController extends Controller
             'is_live'     => 'nullable|boolean',
         ]);
 
-        // Upload thumbnail
         $imagePath = $request->file('thumbnail')->store('video_thumbnails', 'public');
 
-        // Simpan data video streaming
         VideoStreaming::create([
             'title'       => $validated['title'],
             'description' => $validated['description'] ?? null,
@@ -120,18 +118,14 @@ class VideoStreamingController extends Controller
             'is_live' => $request->has('is_live') ? 1 : 0,
         ];
 
-        // Jika ada thumbnail baru
         if ($request->hasFile('thumbnail')) {
-            // Hapus thumbnail lama jika ada
             if ($videoStreaming->thumbnail && Storage::exists('public/' . $videoStreaming->thumbnail)) {
                 Storage::delete('public/' . $videoStreaming->thumbnail);
             }
 
-            // Upload thumbnail baru
             $dataUpdate['thumbnail'] = $request->file('thumbnail')->store('video_thumbnails', 'public');
         }
 
-        // Update data
         $videoStreaming->update($dataUpdate);
 
         return redirect()->back()->with('successUpdate', 'Video streaming berhasil diperbarui.');

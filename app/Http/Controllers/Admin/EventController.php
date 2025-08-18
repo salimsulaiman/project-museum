@@ -195,12 +195,10 @@ class EventController extends Controller
             'status'            => $request->has('status') ? 1 : 0,
         ];
 
-        // Jika judul berubah, generate slug baru
         if ($request->title !== $event->title) {
             $dataUpdate['slug'] = $this->generateUniqueSlug($request->title);
         }
 
-        // Jika upload thumbnail baru
         if ($request->hasFile('thumbnail')) {
             if ($event->thumbnail && Storage::exists('public/' . $event->thumbnail)) {
                 Storage::delete('public/' . $event->thumbnail);

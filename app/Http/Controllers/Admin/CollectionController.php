@@ -75,13 +75,13 @@ class CollectionController extends Controller
             'images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // Upload thumbnail
+
         $thumbnailPath = $request->file('thumbnail')->store('collection_thumbnails', 'public');
 
-        // Generate slug unik
+     
         $slug = $this->generateUniqueSlug($validated['name']);
 
-        // Simpan data utama collection
+   
         $collection = Collection::create([
             'name' => $validated['name'],
             'slug' => $slug,
@@ -98,7 +98,7 @@ class CollectionController extends Controller
             'function' => $validated['function'],
         ]);
 
-        // Simpan gambar tambahan ke collection_images
+     
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imagePath = $image->store('collection_images', 'public');
@@ -145,7 +145,7 @@ class CollectionController extends Controller
     {
         $collection = Collection::findOrFail($request->id);
 
-        // Validasi input
+  
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -163,7 +163,7 @@ class CollectionController extends Controller
             'delete_images.*' => 'nullable|exists:collection_images,id',
         ]);
 
-        // Update data utama
+   
         $collection->update([
             'name' => $validated['name'],
             'no_inv' => $validated['no_inv'],
@@ -178,19 +178,19 @@ class CollectionController extends Controller
             'function' => $validated['function'],
         ]);
 
-        // Update thumbnail
+    
         if ($request->hasFile('thumbnail')) {
-            // Hapus thumbnail lama
+          
             if ($collection->thumbnail && Storage::disk('public')->exists($collection->thumbnail)) {
                 Storage::disk('public')->delete($collection->thumbnail);
             }
-            // Simpan thumbnail baru
+           
             $path = $request->file('thumbnail')->store('collection_thumbnails', 'public');
             $collection->thumbnail = $path;
             $collection->save();
         }
 
-        // Hapus multiple image jika dipilih
+
         if ($request->filled('delete_images')) {
             $imagesToDelete = CollectionImage::whereIn('id', $request->delete_images)->get();
             foreach ($imagesToDelete as $img) {
@@ -201,7 +201,7 @@ class CollectionController extends Controller
             }
         }
 
-        // Tambah multiple image baru
+      
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 if ($file) {
@@ -227,15 +227,15 @@ class CollectionController extends Controller
     {
         $id = $request->id;
 
-        // Ambil collection dengan relasi images
+    
         $collection = Collection::with('images')->findOrFail($id);
 
-        // Hapus thumbnail
+      
         if ($collection->thumbnail && Storage::exists('public/' . $collection->thumbnail)) {
             Storage::delete('public/' . $collection->thumbnail);
         }
 
-        // Hapus semua gambar tambahan
+     
         foreach ($collection->images as $img) {
             if ($img->image && Storage::exists('public/' . $img->image)) {
                 Storage::delete('public/' . $img->image);
@@ -243,7 +243,7 @@ class CollectionController extends Controller
             $img->delete();
         }
 
-        // Hapus collection
+        
         $collection->delete();
 
         return redirect()

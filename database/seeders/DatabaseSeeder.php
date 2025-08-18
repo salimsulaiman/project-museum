@@ -18,18 +18,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(NavbarSeeder::class);
         User::create([
             'name' => 'Admin Utama',
             'email' => 'admin@gmail.com',
             'hp' => '081234567890',
             'email_verified_at' => now(),
-            'password' => Hash::make('admin123'), // ganti dengan password aman
+            'password' => Hash::make('admin123'),
             'remember_token' => Str::random(10),
             'profile' => null,
             'role' => 'admin'
         ]);
-
+        
+        $this->call(NavbarSeeder::class);
         $this->call(VisitorSeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(ProfileSectionSeeder::class);

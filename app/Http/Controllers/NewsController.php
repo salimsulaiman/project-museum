@@ -22,7 +22,7 @@ class NewsController extends Controller
     {
         $query = $request->input('q');
 
-        // Jika query kosong, redirect ke halaman berita
+        
         if (empty($query)) {
             return redirect()->route('news');
         }
