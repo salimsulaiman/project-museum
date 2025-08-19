@@ -4,75 +4,80 @@
 
 @section('content')
 
-    <div class="container my-5">
-        <div class="row">
+    <div class="w-full h-96 overflow-hidden relative">
+        <img src="{{ asset('storage/' . $collection->thumbnail) }}" alt="museum" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
-            <div class="col-md-6">
-
-                <div class="mb-3 border" style="width: 100%; height: 300px; overflow: hidden;">
-                    <img src="{{ asset('storage/' . $collection->thumbnail) }}"
-                        class="w-100 h-100 object-fit-cover object-position-center" alt="{{ $collection->name }}">
+            <!-- Bagian Gambar -->
+            <div>
+                <!-- Thumbnail utama -->
+                <div class="rounded-xl overflow-hidden shadow-sm mb-4">
+                    <img src="{{ asset('storage/' . $collection->thumbnail) }}" alt="{{ $collection->name }}"
+                        class="w-full h-[300px] object-cover object-center">
                 </div>
 
-
-                <div class="row g-2">
+                <!-- Gambar tambahan -->
+                <div class="grid grid-cols-4 gap-3">
                     @foreach ($collection->images as $images)
-                        <div class="col-3">
-                            <div class="border" style="width: 100%; height: 80px; overflow: hidden;">
-                                <img src="{{ asset('storage/' . $images->image) }}"
-                                    class="w-100 h-100 object-fit-cover object-position-center"
-                                    alt="Thumb {{ $loop->iteration }}">
-                            </div>
+                        <div class="rounded-lg overflow-hidden shadow-sm">
+                            <img src="{{ asset('storage/' . $images->image) }}" alt="Thumb {{ $loop->iteration }}"
+                                class="w-full h-20 object-cover object-center hover:scale-105 transition-transform duration-300">
                         </div>
                     @endforeach
                 </div>
             </div>
 
+            <!-- Bagian Detail -->
+            <div class="flex flex-col gap-4">
+                <h2 class="text-2xl font-bold text-gray-800">{{ $collection->name }}</h2>
 
+                <div class="text-gray-700 space-y-1">
+                    <p><span class="font-medium">No. Inv:</span> {{ $collection->no_inv }}</p>
+                    <p><span class="font-medium">Klasifikasi Koleksi:</span> {{ $collection->category->name }}</p>
+                </div>
 
-            <div class="col-md-6">
-                <h4 class="fw-bold">{{ $collection->name }}</h4>
+                <!-- Ukuran -->
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Ukuran</h3>
+                    <div class="overflow-hidden rounded-lg border border-gray-200">
+                        <table class="w-full text-sm text-gray-700">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left">Panjang</th>
+                                    <th class="px-4 py-2 text-left">Lebar</th>
+                                    <th class="px-4 py-2 text-left">Tinggi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="divide-x divide-gray-200">
+                                    <td class="px-4 py-2">{{ $collection->length }} cm</td>
+                                    <td class="px-4 py-2">{{ $collection->width }} cm</td>
+                                    <td class="px-4 py-2">{{ $collection->height }} cm</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-                <p><strong>No. Inv:</strong> {{ $collection->no_inv }}</p>
-                <p><strong>Klasifikasi Koleksi:</strong> {{ $collection->category->name }}</p>
+                <div class="text-gray-700 space-y-1">
+                    <p><span class="font-medium">Bahan:</span> {{ $collection->material }}</p>
+                    <p><span class="font-medium">Warna:</span> {{ $collection->color }}</p>
+                    <p><span class="font-medium">Cara Perolehan:</span> {{ $collection->acquisition_method }}</p>
+                </div>
 
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-1">Deskripsi</h3>
+                    <p class="text-gray-600">{{ $collection->description }}</p>
+                </div>
 
-                <h6 class="mt-4 fw-bold">Ukuran :</h6>
-                <table class="table table-bordered w-auto">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Panjang</th>
-                            <th>Lebar</th>
-                            <th>Tinggi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ $collection->length }} cm</td>
-                            <td>{{ $collection->width }} cm</td>
-                            <td>{{ $collection->height }} cm</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-                <p><strong>Bahan:</strong> {{ $collection->material }}</p>
-                <p><strong>Warna:</strong> {{ $collection->color }}</p>
-                <p><strong>Cara Perolehan:</strong> {{ $collection->acquisition_method }}</p>
-
-
-                <h6 class="fw-bold">Deskripsi</h6>
-                <p>
-                    {{ $collection->description }}
-                </p>
-
-
-                <h6 class="fw-bold">Fungsi</h6>
-                <p>
-                    {{ $collection->function }}
-                </p>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-1">Fungsi</h3>
+                    <p class="text-gray-600">{{ $collection->function }}</p>
+                </div>
             </div>
         </div>
     </div>
-
 @endsection

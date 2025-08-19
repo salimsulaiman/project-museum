@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProfileSection;
+use App\Models\StructureSection;
 use App\Models\VisionMission;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,9 @@ class AboutController extends Controller
     public function index()
     {
         $visionMission = VisionMission::first();
-        return view('pages.about.index', compact('visionMission'));
+        $profile = ProfileSection::first();
+        $structure = StructureSection::first();
+        return view('pages.about.index', compact('visionMission', 'profile', 'structure'));
     }
 
     /**

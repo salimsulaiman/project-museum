@@ -152,7 +152,7 @@
                             <div class="form-check mb-3">
                                 <input type="checkbox" id="status" name="status" class="form-check-input"
                                     value="1" {{ old('status') ? 'checked' : '' }}>
-                                <label for="status" class="form-check-label">Aktif</label>
+                                <label for="status" class="form-check-label">Terlaksana</label>
                             </div>
                         </div>
 
@@ -193,9 +193,9 @@
                         <td>{{ $event->starting_date ? $event->starting_date->format('d M Y H:i') : '-' }}</td>
                         <td>
                             @if ($event->status)
-                                <span class="badge bg-success">Aktif</span>
+                                <span class="badge bg-success">Terlaksana</span>
                             @else
-                                <span class="badge bg-secondary">Tidak Aktif</span>
+                                <span class="badge bg-secondary">Belum Terlaksana</span>
                             @endif
                         </td>
 
@@ -396,7 +396,7 @@
                                                         <input type="checkbox" id="status" name="status"
                                                             class="form-check-input" value="1"
                                                             {{ old('status', $event->status) ? 'checked' : '' }}>
-                                                        <label for="status" class="form-check-label">Aktif</label>
+                                                        <label for="status" class="form-check-label">Terlaksana</label>
                                                     </div>
                                                 </div>
 

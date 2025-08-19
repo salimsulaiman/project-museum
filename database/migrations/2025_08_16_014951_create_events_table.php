@@ -32,7 +32,7 @@ return new class extends Migration
             $table->integer('max_participant');
             $table->string('contact');
             $table->string('pic');
-            $table->string('description');
+            $table->text('description');
             $table->boolean('status')->default(false);
             $table->dateTime('starting_date');
             $table->dateTime('ending_date');

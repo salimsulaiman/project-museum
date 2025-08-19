@@ -1,55 +1,34 @@
- <footer class="border-top py-4" style="background-color: rgba(4, 117, 188, 0.9); color: #fff;">
-     <div class="container">
-         <div class="row align-items-start">
+<footer class="relative bg-gray-800 py-8 h-96 bg-cover bg-center" style="background-image: url('/images/footer-bg.jpg');">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/80"></div>
 
-             <!-- Kiri: Info Museum -->
-             <div class="col-md-4 mb-4">
-                 <div class="d-flex">
-                     <img src="{{ $footerSection->logo ? asset('storage/' . $footerSection->logo) : asset('images/logo.png') }}"
-                         alt="Museum" class="me-3 p-2 rounded"
-                         style="width: 80px; height: auto; object-fit: contain; filter: brightness(0) invert(1);">
-                     <div>
-                         <strong>{{ $footerSection->title }}</strong><br>
-                         <p>{{ $footerSection->address }}</p>
-                     </div>
-                 </div>
-             </div>
+    <!-- Konten -->
+    <div
+        class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex h-full items-center justify-center flex-col text-white">
+        <div class="flex flex-col items-center justify-center mb-8">
+            <img src="{{ $footerSection->logo ? asset('storage/' . $footerSection->logo) : asset('images/logo.png') }}"
+                alt="Museum" class="w-48 filter brightness-0 invert mb-8">
+            <strong class="text-2xl">{{ $footerSection->title }}</strong>
+            <p class="text-sm mt-4">{{ $footerSection->address }}</p>
+        </div>
 
-             <!-- Tengah: Link -->
-             <div class="col-md-3 mb-4">
-                 <h6><strong>Link Terkait</strong></h6>
-                 <ul class="list-unstyled">
-                     @foreach ($footerSection->details as $link)
-                         <li><a href="{{ $link->href }}"
-                                 class="text-white text-decoration-none">{{ $link->navigation }}</a></li>
-                     @endforeach
-                 </ul>
-             </div>
+        <!-- Navigasi Link -->
+        <nav class="flex justify-center flex-wrap gap-6 mb-6 text-slate-200">
+            @foreach ($footerSection->details as $link)
+                <a href="{{ $link->href }}" class="hover:text-white transition">{{ $link->navigation }}</a>
+            @endforeach
+        </nav>
 
-             <!-- Background Peta -->
-             <div class="col-md-2 mb-4 d-none d-md-block">
-                 <div
-                     style="
-          width: 100%;
-          height: 100px;
-          background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-          background-size: cover;
-          background-position: center;
-          border-radius: 5px;
-        ">
-                 </div>
-             </div>
+        <!-- Sosial Media -->
+        <div class="flex justify-center gap-6 mb-6 text-slate-200">
+            <a href="#" class="hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fab fa-github"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fab fa-youtube"></i></a>
+        </div>
 
-             <!-- Kanan: Form Kirim Pesan -->
-             <div class="col-md-3 mb-4">
-                 <h6><strong>Kirim Pesan</strong></h6>
-                 <form>
-                     <input type="email" class="form-control mb-2" placeholder="Email">
-                     <textarea class="form-control mb-2" rows="2" placeholder="Pesan"></textarea>
-                     <button type="submit" class="btn btn-light btn-sm">Kirim</button>
-                 </form>
-             </div>
-
-         </div>
-     </div>
- </footer>
+        <!-- Copyright -->
+        <p class="text-white text-sm">&copy; 2025 Museum Maritim Indonesia, Inc. All rights reserved.</p>
+    </div>
+</footer>

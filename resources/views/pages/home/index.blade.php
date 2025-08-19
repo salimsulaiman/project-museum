@@ -5,157 +5,230 @@
 @section('content')
 
     @if ($banners->count() > 0)
-        <div id="jumbotronCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
+        <div x-data="{
+            active: 0,
+            total: {{ $banners->count() }},
+            intervalId: null,
+            startInterval() {
+                this.intervalId = setInterval(() => {
+                    this.active = (this.active + 1) % this.total
+                }, 4000);
+            },
+            resetInterval() {
+                clearInterval(this.intervalId);
+                this.startInterval();
+            }
+        }" x-init="startInterval()" class="relative w-full h-screen overflow-hidden">
+            <!-- Slides -->
+            <template x-for="(banner, index) in {{ json_encode($banners) }}" :key="index">
+                <div x-show="active === index" x-transition:enter="transition ease-in-out duration-700"
+                    x-transition:enter-start="opacity-0 brightness-50" x-transition:enter-end="opacity-100 brightness-100"
+                    x-transition:leave="transition ease-in-out duration-700"
+                    x-transition:leave-start="opacity-100 brightness-100" x-transition:leave-end="opacity-0 brightness-50"
+                    class="absolute inset-0">
+                    <!-- Background Image -->
+                    <img :src="'/storage/' + banner.image" alt="Banner" class="w-full h-full object-cover">
 
-                {{-- Slide 1 --}}
-                @foreach ($banners as $index => $banner)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="4000">
-                        <div class="position-relative">
-                            <img src="{{ asset('storage/' . $banner->image) }}" class="d-block w-100"
-                                style="height: 100vh; object-fit: cover;" alt="Museum">
-                            <!-- Overlay -->
-                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-                        </div>
-                        <div class="carousel-caption d-flex flex-column justify-content-center h-100">
-                            <h1 class="fw-bold display-4">{{ $banner->title }}</h1>
-                        </div>
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                    <!-- Caption -->
+                    <div class="absolute inset-0 flex items-center justify-center flex-col gap-8">
+                        <h1 class="text-white font-semibold text-2xl md:text-4xl text-center px-4">
+                            <span x-text="banner.title"></span>
+                        </h1>
+                        <p class="text-white text-base">
+                            <span x-text="banner.description"></span>
+                        </p>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            </template>
 
-            {{-- Tombol Navigasi --}}
-            <button class="carousel-control-prev" type="button" data-bs-target="#jumbotronCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
+            <!-- Controls -->
+            <button @click="active = (active - 1 + total) % total; resetInterval()"
+                class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#jumbotronCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
+
+            <button @click="active = (active + 1) % total; resetInterval()"
+                class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
             </button>
         </div>
     @endif
 
-    {{-- ISI HALAMAN --}}
-    <div class="py-5 mt-0 pt-1 w-100">
-
-        <div class="w-100 px-4">
-            <div class="row text-center mt-4">
+    <div class="w-full bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex gap-2 mt-8">
+                <div class="self-stretch w-2 bg-sky-800 rounded-full"></div>
+                <h1 class="text-2xl font-bold text-slate-800">Kategori</h1>
+            </div>
+            <p class="text-slate-600 max-w-xl mt-4">Temukan beragam kategori utama seperti Koleksi, Berita, Publikasi, dan
+                Event yang dirancang untuk memudahkan Anda dalam menjelajahi konten.</p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center mt-6">
                 @foreach ($categories as $category)
-                    <div class="col-6 col-md-3 mb-3">
-                        <a href="{{ url($category->url) }}" class="text-decoration-none text-secondary">
-                            <div class="kotak-ikon border-secondary">
+                    <a href="{{ url($category->url) }}"
+                        class="group block text-gray-700 hover:text-gray-900 transition-colors">
+                        <div
+                            class="rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow bg-white overflow-hidden aspect-square">
+                            <!-- Icon / Image -->
+                            <div class="aspect-square rounded-xl overflow-hidden mb-3 relative">
                                 <div
-                                    class="ratio ratio-1x1 d-flex justify-content-center align-items-center rounded-3 mb-3 overflow-hidden p-5">
-                                    <img src="{{ asset('storage/' . $category->image) }}"
-                                        class="w-100 h-100 object-fit-cover" alt="{{ $category->title }}">
+                                    class="bg-sky-800 z-10 text-sm rounded-r-full absolute w-fit h-fit px-4 py-2 top-4 left-0 flex items-center justify-center text-white group-hover:px-10 transition-all duration-300 ease-in-out shadow">
+                                    {{ $category->title }}</div>
+                                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->title }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                <div
+                                    class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300">
                                 </div>
-                                <div class="judul-ikon">{{ $category->title }}</div>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 @endforeach
             </div>
 
-            <div class="prosedur mt-4 pt-4 d-flex flex-wrap gap-3 p-4 rounded-3">
-                <div class="row">
-                    <div class="col-12 col-md-3 d-flex flex-column justify-content-center text-end mb-4 mb-md-0 p-4">
-                        <h3>Layanan</h3>
-                        <p>
+        </div>
+    </div>
+
+    <div class="w-full mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="p-6 rounded-xl border border-gray-200 shadow-sm bg-sky-700">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+
+                    <div class="md:col-span-3 text-right md:text-end">
+                        <h3 class="text-lg font-semibold text-white">Layanan</h3>
+                        <p class="text-white mt-2">
                             {{ $service->day }}<br>
                             {{ $service->time }}
                         </p>
                     </div>
-                    <div class="col-12 col-md-5 d-flex flex-column justify-content-center text-start mb-4 mb-md-0 p-4">
-                        <h4>Prosedur Kunjungan</h4>
-                        {!! $service->procedure !!}
-                    </div>
-                    <div class="col-12 col-md-4 text-center">
-                        <a href="{{ $service->url }}" target="_blank">
-                            <img src="{{ $service->thumbnail ? asset('storage/' . $service->thumbnail) : asset('images/virtualmuseum.jpg') }}"
-                                alt="Virtual Museum" class="img-fluid">
-                        </a>
-                        <div class="teks-gambar mt-2">
-                            <a href="{{ $service->url }}"></a>
+
+                    <div class="md:col-span-5">
+                        <h4 class="text-lg font-semibold text-white mb-2">Prosedur Kunjungan</h4>
+                        <div class="prose prose-invert max-w-none text-white">
+                            {!! $service->procedure !!}
                         </div>
                     </div>
+
+                    <div class="md:col-span-4 text-center">
+                        <a href="{{ $service->url }}" target="_blank"
+                            class="group block rounded-xl overflow-hidden shadow hover:shadow-md transition">
+                            <img src="{{ $service->thumbnail ? asset('storage/' . $service->thumbnail) : asset('images/virtualmuseum.jpg') }}"
+                                alt="Virtual Museum"
+                                class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        </a>
+                    </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 
-    {{-- Instagram & YouTube --}}
-    <div class="instagram-youtube-wrapper mt-4 p-3">
-        <div class="d-flex align-items-center justify-content-center flex-wrap text-center text-black">
-            <div class="col-md-4">
-                <img src="images/dongeng.jpg" alt="Poster" class="poster-img">
-            </div>
-            <div class="col-md-7 text-start">
-                <h4 class="fw-bold mb-3">YOUTUBE & IG LIVE</h4>
-                <div class="instagram-grid text-center">
+    <div class="w-full py-12 bg-slate-200 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col justify-center">
+                <div class="flex gap-2">
+                    <div class="self-stretch w-2 bg-sky-800 rounded-full"></div>
+                    <h1 class="text-2xl font-bold text-slate-800">Video Streaming</h1>
+                </div>
+                <p class="text-slate-600 max-w-xl mt-4">Temukan beragam kategori utama seperti Koleksi, Berita, Publikasi,
+                    dan
+                    Event yang dirancang untuk memudahkan Anda dalam menjelajahi konten.</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4 mt-6">
                     @foreach ($video_streamings as $video_streaming)
-                        <a href="{{ $video_streaming->video_url }}" target="_blank"><img
-                                src="{{ asset('storage/' . $video_streaming->thumbnail) }}" class="img-youtube"></a>
+                        <a href="{{ $video_streaming->video_url }}" target="_blank"
+                            class="group relative overflow-hidden rounded-lg shadow hover:shadow-lg transition">
+                            <img src="{{ asset('storage/' . $video_streaming->thumbnail) }}"
+                                class="w-full h-32 md:h-40 object-cover transform group-hover:scale-105 transition duration-300 rounded-lg">
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-50 transition"></div>
+                        </a>
                     @endforeach
-
                 </div>
-                <div class="text-center">
-                    <a href="https://www.youtube.com/" class="btn btn-primary mt-3">LIHAT VIDEO</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    {{-- Grafik dan Gambar Berdampingan --}}
-    <div class="container my-5">
-        <div class="row align-items-center">
-
-            {{-- Grafik Data Pengunjung --}}
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <canvas id="pengunjungChart" style="max-width: 100%; height: 300px;"></canvas>
-            </div>
-
-            {{-- Gambar di samping grafik --}}
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <div class="img-wrapper shadow rounded p-2 bg-light" style="max-width: 400px; width: 100%;">
-                    <img src="images/ruang-kegiatan.jpg" alt="Gambar Contoh" class="img-fluid custom-img"
-                        style="object-fit: cover;">
+                <div class="flex justify-center lg:justify-start mt-4">
+                    <a href="https://www.youtube.com/" target="_blank"
+                        class="bg-sky-700 hover:bg-sky-800 text-white font-semibold px-6 py-2 rounded-full shadow transition text-sm">
+                        Lihat Konten
+                    </a>
                 </div>
             </div>
 
         </div>
     </div>
+
+
+    {{-- <div class="w-full py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+
+            <!-- Grafik Card -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 relative">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Grafik Data Pengunjung</h3>
+                <canvas id="pengunjungChart" class="w-full h-[300px]"></canvas>
+            </div>
+
+            <!-- Image Card -->
+            <div class="relative group rounded-2xl overflow-hidden shadow-xl">
+                <img src="images/ruang-kegiatan.jpg" alt="Ruang Kegiatan"
+                    class="w-full h-[350px] object-cover transform group-hover:scale-105 transition duration-500">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-6">
+                    <span class="text-white text-lg font-medium">Ruang Kegiatan</span>
+                </div>
+            </div>
+
+        </div>
+    </div> --}}
+
 
     {{-- Berita --}}
     @if ($news->count() > 0)
-        <div class="berita mt-4 px-3 container" style="margin-bottom: 1cm;">
-            <h4 class="fw-bold mb-3">Berita</h4>
-            <hr>
-            <div class="row g-3">
-                @foreach ($news as $item)
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="bg-light rounded shadow-sm h-100 overflow-hidden">
-                            <a href="{{ route('news.show', $item->slug) }}" class="text-decoration-none d-block h-100">
-                                <div style="height: 180px; overflow: hidden;">
-                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
-                                        class="w-100 h-100" style="object-fit: cover;">
-                                </div>
-                                <div class="p-3">
-                                    <h5 class="text-dark fw-semibold mb-1 text-truncate">{{ $item->title }}</h5>
-                                    <p class="text-muted mb-2" style="font-size: 12px">
-                                        {{ $item->created_at->translatedFormat('j F Y') }}
-                                    </p>
-                                    <p class="text-muted small mb-0">{{ Str::limit($item->summary, 100, '...') }}</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+        <div class="w-full mt-8 mb-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex gap-2">
+                    <div class="self-stretch w-2 bg-sky-800 rounded-full"></div>
+                    <h1 class="text-2xl font-bold text-slate-800">Berita</h1>
+                </div>
+                <p class="text-slate-600 max-w-xl mt-4">Temukan beragam kategori utama seperti Koleksi, Berita, Publikasi,
+                    dan
+                    Event yang dirancang untuk memudahkan Anda dalam menjelajahi konten.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                    @foreach ($news as $item)
+                        <a href="{{ route('news.show', $item->slug) }}" class="block group">
+                            <div class="bg-white rounded-2xl shadow-sm overflow-hidden h-full flex flex-col">
 
+                                <!-- Gambar -->
+                                <div class="h-44 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
+                                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                </div>
+
+                                <!-- Konten -->
+                                <div class="py-4 flex-1 flex flex-col">
+                                    <h5 class="text-gray-900 font-semibold mb-1 truncate">{{ $item->title }}</h5>
+                                    <p class="text-gray-500 text-xs mb-2">
+                                        {{ $item->created_at->translatedFormat('j F Y') }}</p>
+                                    <p class="text-gray-600 text-sm flex-1 line-clamp-2">
+                                        {{ Str::limit($item->summary, 100, '...') }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
         </div>
     @endif
 
+
 @endsection
-@section('script')
+{{-- @section('script')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('pengunjungChart').getContext('2d');
@@ -186,4 +259,4 @@
             }
         });
     </script>
-@endsection
+@endsection --}}

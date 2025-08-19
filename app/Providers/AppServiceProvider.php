@@ -38,6 +38,6 @@ class AppServiceProvider extends ServiceProvider
         $view->with('footerSection', FooterSection::with('details')->first());
     });
 
-        Paginator::useBootstrapFive();
+        Paginator::useTailwind();
     }
 }

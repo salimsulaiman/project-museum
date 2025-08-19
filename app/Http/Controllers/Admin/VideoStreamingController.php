@@ -44,7 +44,7 @@ class VideoStreamingController extends Controller
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'platform'    => 'required|in:youtube,instagram,local',
-            'video_url'   => 'required|url',
+            'video_url'   => 'required',
             'thumbnail'   => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'start_time'  => 'nullable|date',
             'is_live'     => 'nullable|boolean',

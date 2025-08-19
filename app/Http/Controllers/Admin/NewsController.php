@@ -113,7 +113,7 @@ class NewsController extends Controller
         $request->validate([
             'id'        => 'required|exists:news,id',
             'title'     => 'required|string|max:255',
-            'summary'   => 'required|string|max:255',
+            'summary'   => 'required|string',
             'content'   => 'required|string',
             'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_publish' => 'nullable|boolean',

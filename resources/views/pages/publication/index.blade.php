@@ -4,95 +4,99 @@
 
 @section('content')
 
+    <div class="w-full relative bg-gray-100 h-64 md:h-96 pt-8 flex items-center bg-cover bg-center justify-center"
+        style="background-image: url('/images/footer-bg.jpg');">
+        <div class="absolute inset-0 bg-gray-900/90"></div>
 
-    <div class="container my-4">
-        <div class="row align-items-center justify-content-between">
-            <!-- Kiri: Judul dan tombol filter -->
-            <div class="col-md-8 d-flex align-items-center flex-wrap gap-2">
-                <h6 class="fw-bold mb-0 me-3">PUBLIKASI</h6>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">Publikasi</h1>
+            <p class="text-white text-base md:text-lg max-w-lg">Selamat Datang di Halaman Kegiatan Museum Nasional</p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Header: Judul + Filter -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <!-- Kiri: Judul dan kategori -->
+            <div class="flex flex-wrap items-center gap-2">
 
                 <a href="{{ route('publication.search', ['search' => request('search')]) }}"
-                    class="btn btn-sm {{ request('category') ? 'btn-outline-secondary' : 'btn-primary' }}">
+                    class="px-3 py-1 rounded-full text-sm font-medium transition
+                          {{ request('category') ? 'bg-gray-100 text-gray-600 hover:bg-gray-200' : 'bg-sky-600 text-white hover:bg-sky-700' }}">
                     Semua
                 </a>
 
                 @foreach ($categories as $category)
                     <a href="{{ route('publication.search', ['category' => $category->id, 'search' => request('search')]) }}"
-                        class="btn btn-sm {{ request('category') == $category->id ? 'btn-primary' : 'btn-outline-secondary' }}">
+                        class="px-3 py-1 rounded-full text-sm font-medium transition
+                              {{ request('category') == $category->id ? 'bg-sky-600 text-white hover:bg-sky-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                         {{ $category->name }}
                     </a>
                 @endforeach
             </div>
 
             <!-- Kanan: Search input -->
-            <div class="col-md-4 d-flex justify-content-end">
-                <form method="GET" action="{{ route('publication.search') }}" class="w-100" style="max-width: 250px;">
-                    <div class="input-group input-group-sm">
-                        <input type="search" name="search" class="form-control" placeholder="Search">
-                        <button class="btn btn-outline-secondary" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-4">
-        <div class="row g-3">
-            @foreach ($publications as $publication)
-                <div class="col-md-6 col-sm-12"> <!-- agar 2 card pas 1 layar -->
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="{{ route('publication.show', $publication->slug) }}"
-                            class="text-decoration-none text-dark">
-                            <div style="height: 250px; overflow: hidden;">
-                                <img src="{{ asset('storage/' . $publication->image) }}" class="w-100 h-100"
-                                    style="object-fit: cover; object-position: center;" alt="Gambar Berita">
-                            </div>
-                            <div class="card-body">
-                                <span class="badge bg-secondary mb-2">{{ $publication->category->name }}</span>
-                                <h6 class="card-title fw-bold">
-                                    {{ $publication->title }}
-                                </h6>
-                                <p class="card-text text-muted" style="font-size: 14px;">
-                                    {{ Str::limit(strip_tags($publication->content), 200, '...') }}
-                                </p>
-                            </div>
-                            <div class="card-footer bg-white border-0 d-flex justify-content-end">
-                            </div>
-                        </a>
-                    </div>
+            <form method="GET" action="{{ route('publication.search') }}" class="w-full md:w-64">
+                <div class="flex items-center bg-gray-100 rounded-full overflow-hidden shadow-sm">
+                    <input type="search" name="search" value="{{ request('search') }}" placeholder="Search..."
+                        class="flex-grow px-4 py-2 bg-transparent text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-0">
+                    <button type="submit" class="text-gray-500 hover:text-gray-700 px-4 py-2">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
+            </form>
+
+        </div>
+
+        <!-- Grid Card -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            @foreach ($publications as $publication)
+                <a href="{{ route('publication.show', $publication->slug) }}"
+                    class="group bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden flex flex-col">
+                    <div class="h-48 w-full overflow-hidden">
+                        <img src="{{ asset('storage/' . $publication->image) }}" alt="{{ $publication->title }}"
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300">
+                    </div>
+                    <div class="p-4 flex flex-col flex-1">
+                        <span class="text-xs font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded w-fit mb-2">
+                            {{ $publication->category->name }}
+                        </span>
+                        <h3 class="text-base font-semibold text-gray-800 mb-2 group-hover:text-blue-600 line-clamp-2">
+                            {{ $publication->title }}
+                        </h3>
+                        <p class="text-sm text-gray-600 line-clamp-2">
+                            {{ Str::limit(strip_tags($publication->content), 150, '...') }}
+                        </p>
+                    </div>
+                </a>
             @endforeach
         </div>
-    </div>
 
-    <!-- Jarak 3cm antara 2 card dan gambar fullscreen -->
-    @if ($latestPublication)
-        <div class="w-100" style="margin-top: 1cm;">
-            <div class="card border-0 rounded-0 position-relative">
-                <a href="{{ route('publication.show', $latestPublication->slug) }}" class="text-decoration-none text-dark">
-                    <!-- Gambar Fullscreen dengan margin kiri-kanan 5cm -->
-                    <div style="height: 400px; overflow: hidden;">
-                        <img src="{{ asset('storage/' . $latestPublication->image) }}" class="w-100 h-100"
-                            style="object-fit: cover; object-position: center;" alt="Gambar Berita">
+        <!-- Pagination -->
+        <div class="mt-8">
+            {{ $publications->links() }}
+        </div>
+
+        <!-- Latest Publication Highlight -->
+        @if ($latestPublication)
+            <div class="mt-12 relative rounded-xl overflow-hidden shadow-lg">
+                <a href="{{ route('publication.show', $latestPublication->slug) }}" class="block">
+                    <div class="h-80">
+                        <img src="{{ asset('storage/' . $latestPublication->image) }}"
+                            alt="{{ $latestPublication->title }}" class="w-full h-full object-cover object-center">
                     </div>
-                    <!-- Isi Card di atas gambar -->
-                    <div class="card-body position-absolute bottom-0 start-0 text-white bg-dark bg-opacity-50 w-100 p-4"
-                        style="padding-left: 5cm; padding-right: 1cm;">
-                        <span class="badge bg-light text-dark mb-2">{{ $latestPublication->category->name }}</span>
-                        <h6 class="card-title fw-bold">{{ $latestPublication->title }}</h6>
-                        <p class="card-text" style="font-size: 14px;">
-                            {{ Str::limit(strip_tags($latestPublication->content), 200, '...') }}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white max-w-3xl">
+                        <span class="text-xs font-medium bg-white text-gray-800 px-2 py-1 rounded">
+                            {{ $latestPublication->category->name }}
+                        </span>
+                        <h3 class="text-2xl font-bold mt-3">{{ $latestPublication->title }}</h3>
+                        <p class="text-sm mt-2 text-gray-200 line-clamp-2">
+                            {{ Str::limit(strip_tags($latestPublication->content), 180, '...') }}
                         </p>
                     </div>
                 </a>
             </div>
-        </div>
-    @endif
-
-
-
-
-
+        @endif
+    </div>
 @endsection

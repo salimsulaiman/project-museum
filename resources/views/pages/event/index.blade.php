@@ -1,93 +1,96 @@
 @extends('layout.app')
 
-@section('title', 'kegiatan')
+@section('title', 'Kegiatan')
 
 @section('content')
 
-    <div class="container py-4" style="max-width: 1400px;">
 
-        {{-- Jumbotron --}}
-        <div class="jumbotron text-center py-5 mb-4">
-            <h1 class="display-4 fw-bold">Kegiatan</h1>
-            <p class="lead">Selamat datang di halaman kegiatan Museum Nasional</p>
+    <div class="w-full relative bg-gray-100 h-64 md:h-96 pt-8 flex items-center bg-cover bg-center justify-center"
+        style="background-image: url('/images/ocean-bg.jpg');">
+        <div class="absolute inset-0 bg-sky-900/90"></div>
+
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">Kegiatan</h1>
+            <p class="text-white text-base md:text-lg max-w-lg">Selamat Datang di Halaman Kegiatan Museum Nasional</p>
         </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         {{-- Judul --}}
-        <h3 class="fw-bold mb-1">EVENT</h3>
-        <p class="text-muted mb-4">Museum Maritim</p>
+        <div class="mb-8">
+            <h3 class="text-2xl font-bold text-gray-900">EVENT</h3>
+            <p class="text-gray-500">Museum Maritim</p>
+        </div>
 
         {{-- Slider Event --}}
-        <div class="row g-3 mb-4">
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
             @foreach ($topEvents as $topEvent)
-                <div class="col-md-4">
-                    <a href="{{ route('activity.show', $topEvent->slug) }}">
-                        <div class="card border-0 text-white" style="height: 200px; overflow: hidden; position: relative;">
-                            <img src="{{ asset('storage/' . $topEvent->thumbnail) }}" class="w-100 h-100"
-                                style="object-fit: cover;">
-                            <div
-                                style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
-                            </div>
-                            <div style="position:absolute; bottom:0; left:0; padding:15px;">
-                                <span class="badge bg-warning text-dark mb-1">EVENT</span>
-                                <h6 class="mb-0 fw-bold">{{ $topEvent->title }}</h6>
-                                <small class="text-light">{{ $topEvent->created_at }}</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <a href="{{ route('activity.show', $topEvent->slug) }}"
+                    class="relative block group rounded-xl overflow-hidden shadow">
+                    <img src="{{ asset('storage/' . $topEvent->thumbnail) }}"
+                        class="w-full h-52 object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/50"></div>
+                    <div class="absolute bottom-0 left-0 p-4 text-white">
+                        <span class="bg-yellow-400 text-gray-900 text-xs font-semibold px-2 py-1 rounded">EVENT</span>
+                        <h6 class="mt-2 text-lg font-bold">{{ $topEvent->title }}</h6>
+                        <small class="text-gray-200">{{ $topEvent->created_at }}</small>
+                    </div>
+                </a>
             @endforeach
         </div>
 
-        {{-- Konten Utama --}}
-        <div class="row">
-            {{-- Kolom Kiri (Daftar Event) --}}
-            <div class="col-lg-8">
-                {{-- Event Utama --}}
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
                 @foreach ($events as $item)
-                    <div class="card border-0 mb-4 shadow-sm ">
-                        <div class="card-img-wrapper" style="height: 200px; overflow: hidden;">
-                            <img src="{{ asset('storage/' . $item->thumbnail) }}" class="w-100 h-100"
-                                style="object-fit: cover; object-position: center;" alt="{{ $item->title }}">
+                    <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-0 overflow-hidden">
+                        <div class="h-52 w-full">
+                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}"
+                                class="w-full h-full object-cover">
                         </div>
-                        <div class="card-body p-3">
-                            <h5 class="fw-bold">{{ $item->title }}</h5>
-                            <small class="text-muted">
+                        <div class="p-5">
+                            <h5 class="text-xl font-bold text-gray-900 mb-1">{{ $item->title }}</h5>
+                            <small class="text-gray-500">
                                 {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('F d, Y') }}
                             </small>
-                            <p class="mt-2 mb-3 text-muted">
-                                {!! Str::limit($item->summary ?? $item->content, 80, '...') !!}
+                            <p class="mt-3 text-gray-600 line-clamp-2">
+                                {!! Str::limit($item->description ?? $item->content, 200, '...') !!}
                             </p>
-                            <a href="{{ route('activity.show', $item->slug) }}" class="btn btn-sm btn-secondary">
+                            <a href="{{ route('activity.show', $item->slug) }}"
+                                class="inline-block mt-3 px-4 py-2 bg-sky-600 text-white text-sm rounded-full hover:bg-sky-700 transition">
                                 Baca Selengkapnya
                             </a>
                         </div>
                     </div>
                 @endforeach
-                <div class="mt-4 d-flex justify-content-center">
-                    {{ $events->links() }}
-                </div>
 
+                <div class="mt-6">
+                    {{ $events->links('pagination::tailwind') }}
+                </div>
             </div>
 
-            {{-- Kolom Kanan (Sidebar) --}}
-            <div class="col-lg-4">
-
-                {{-- Latest News --}}
-                <h6 class="fw-bold border-bottom pb-2">LATEST NEWS</h6>
-                @foreach ($latestNews as $item)
-                    <a href="{{ route('news.show', $item->slug) }}" class="text-decoration-none">
-                        <div class="d-flex mb-3">
+            <div class="space-y-6">
+                <h6 class="text-lg font-semibold text-gray-900 border-b pb-2">LATEST NEWS</h6>
+                <div class="space-y-4">
+                    @foreach ($latestNews as $item)
+                        <a href="{{ route('news.show', $item->slug) }}" class="flex gap-3 group">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
-                                class="flex-shrink-0" style="width: 80px; height: 60px; object-fit: cover;">
-                            <div class="ms-2">
-                                <small class="fw-bold text-dark">{{ $item->title }}</small><br>
-                                <small class="text-muted">{{ $item->created_at }}</small>
+                                class="w-24 h-16 object-cover rounded shadow">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800 group-hover:text-sky-600 transition">
+                                    {{ $item->title }}
+                                </p>
+                                <small class="text-gray-500">{{ $item->created_at }}</small>
                             </div>
-                        </div>
-                    </a>
-                @endforeach
-                <a href="{{ route('news') }}" class="btn btn-outline-secondary btn-sm w-100">Muat Lebih</a>
+                        </a>
+                    @endforeach
+                </div>
+                <a href="{{ route('news') }}"
+                    class="block w-full text-center px-4 py-2 border border-sky-600 text-sky-600 rounded-full hover:bg-sky-50 transition">
+                    Muat Lebih
+                </a>
             </div>
         </div>
     </div>
+
 @endsection

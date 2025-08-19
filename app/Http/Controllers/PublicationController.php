@@ -16,7 +16,7 @@ class PublicationController extends Controller
     public function index()
     {
         $categories = PublicationCategory::get();
-        $publications = Publication::with('category')->get();
+        $publications = Publication::with('category')->paginate(8);
         $latestPublication = Publication::with('category')
             ->latest()
             ->first();
