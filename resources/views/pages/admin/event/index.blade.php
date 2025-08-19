@@ -64,31 +64,36 @@
                                 <input type="hidden" name="content" id="content" value="{{ old('content') }}">
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="standing" class="form-label">Standing</label>
-                                    <input type="number" id="standing" name="standing" class="form-control"
-                                        value="{{ old('standing') }}">
+                            <div class="border-top border-bottom p-3 mb-3 border-secondary">
+                                <p class="text-muted mb-3"><em>Field berikut bersifat opsional:</em></p>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="standing" class="form-label">Standing</label>
+                                        <input type="number" id="standing" name="standing" class="form-control"
+                                            value="{{ old('standing') }}">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="classroom" class="form-label">Classroom</label>
+                                        <input type="number" id="classroom" name="classroom" class="form-control"
+                                            value="{{ old('classroom') }}">
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="classroom" class="form-label">Classroom</label>
-                                    <input type="number" id="classroom" name="classroom" class="form-control"
-                                        value="{{ old('classroom') }}">
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="round_table" class="form-label">Round Table</label>
+                                        <input type="number" id="round_table" name="round_table" class="form-control"
+                                            value="{{ old('round_table') }}">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="u_shape" class="form-label">U-Shape</label>
+                                        <input type="number" id="u_shape" name="u_shape" class="form-control"
+                                            value="{{ old('u_shape') }}">
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="round_table" class="form-label">Round Table</label>
-                                    <input type="number" id="round_table" name="round_table" class="form-control"
-                                        value="{{ old('round_table') }}">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="u_shape" class="form-label">U-Shape</label>
-                                    <input type="number" id="u_shape" name="u_shape" class="form-control"
-                                        value="{{ old('u_shape') }}">
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -283,36 +288,43 @@
                                                             value="{{ old('content', $event->content) }}">
                                                     </div>
 
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <label for="standing" class="form-label">Standing</label>
-                                                            <input type="number" id="standing" name="standing"
-                                                                class="form-control"
-                                                                value="{{ old('standing', $event->standing) }}">
+                                                    <div class="border-top border-bottom p-3 mb-3 border-secondary">
+                                                        <p class="text-muted mb-3"><em>Field berikut bersifat
+                                                                opsional:</em></p>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="standing" class="form-label">Standing</label>
+                                                                <input type="number" id="standing" name="standing"
+                                                                    class="form-control"
+                                                                    value="{{ old('standing', $event->standing) }}">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="classroom"
+                                                                    class="form-label">Classroom</label>
+                                                                <input type="number" id="classroom" name="classroom"
+                                                                    class="form-control"
+                                                                    value="{{ old('classroom', $event->classroom) }}">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6 mb-3">
-                                                            <label for="classroom" class="form-label">Classroom</label>
-                                                            <input type="number" id="classroom" name="classroom"
-                                                                class="form-control"
-                                                                value="{{ old('classroom', $event->classroom) }}">
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="round_table" class="form-label">Round
+                                                                    Table</label>
+                                                                <input type="number" id="round_table" name="round_table"
+                                                                    class="form-control"
+                                                                    value="{{ old('round_table', $event->round_table) }}">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="u_shape" class="form-label">U-Shape</label>
+                                                                <input type="number" id="u_shape" name="u_shape"
+                                                                    class="form-control"
+                                                                    value="{{ old('u_shape', $event->u_shape) }}">
+                                                            </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <label for="round_table" class="form-label">Round
-                                                                Table</label>
-                                                            <input type="number" id="round_table" name="round_table"
-                                                                class="form-control"
-                                                                value="{{ old('round_table', $event->round_table) }}">
-                                                        </div>
-                                                        <div class="col-md-6 mb-3">
-                                                            <label for="u_shape" class="form-label">U-Shape</label>
-                                                            <input type="number" id="u_shape" name="u_shape"
-                                                                class="form-control"
-                                                                value="{{ old('u_shape', $event->u_shape) }}">
-                                                        </div>
-                                                    </div>
 
                                                     <div class="row">
                                                         <div class="col-md-6 mb-3">

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->foreignId('event_category_id')->constrained('event_categories')->onDelete('cascade');
             $table->foreignId('event_location_id')->constrained('event_locations')->onDelete('cascade');
+            $table->text('location_detail');
             $table->text('content');
             $table->integer('standing')->nullable();
             $table->integer('classroom')->nullable();

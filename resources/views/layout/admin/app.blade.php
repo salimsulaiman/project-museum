@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin | @yield('title', 'Judul Default')</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logos/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logos/small-logo.png') }}" />
     {{-- <link rel="stylesheet" href="./libs/datatables/css/dataTables.dataTables.css"> --}}
     <link rel="stylesheet" href="{{ asset('libs/datatables/css/buttons.dataTables.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/datatables/css/bootstrap.min.css') }}">
