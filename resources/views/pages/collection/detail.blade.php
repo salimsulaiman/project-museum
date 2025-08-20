@@ -16,7 +16,7 @@
                 <!-- Thumbnail utama -->
                 <div class="rounded-xl overflow-hidden shadow-sm mb-4">
                     <img src="{{ asset('storage/' . $collection->thumbnail) }}" alt="{{ $collection->name }}"
-                        class="w-full h-[300px] object-cover object-center">
+                        class="w-full h-[300px] object-cover object-center" loading="lazy">
                 </div>
 
                 <!-- Gambar tambahan -->

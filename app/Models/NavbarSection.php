@@ -10,7 +10,7 @@ class NavbarSection extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'logo',
     ];
 
 

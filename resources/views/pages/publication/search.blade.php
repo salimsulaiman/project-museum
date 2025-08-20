@@ -55,7 +55,8 @@
                     class="group bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden flex flex-col">
                     <div class="h-48 w-full overflow-hidden">
                         <img src="{{ asset('storage/' . $publication->image) }}" alt="{{ $publication->title }}"
-                            class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300">
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300"
+                            loading="lazy">
                     </div>
                     <div class="p-4 flex flex-col flex-1">
                         <span class="text-xs font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded w-fit mb-2">

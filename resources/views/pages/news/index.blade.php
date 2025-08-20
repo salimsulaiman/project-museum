@@ -38,7 +38,8 @@
                         <div class="bg-white rounded-lg shadow overflow-hidden flex flex-col h-full">
                             <div class="w-full h-48 relative overflow-hidden">
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="Berita"
-                                    class="w-full h-full object-cover group-hover:scale-105 absolute transition-all duration-300 ease-in-out">
+                                    class="w-full h-full object-cover group-hover:scale-105 absolute transition-all duration-300 ease-in-out"
+                                    loading="lazy">
                             </div>
                             <div class="p-4 flex flex-col flex-grow">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">

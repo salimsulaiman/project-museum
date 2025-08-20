@@ -28,10 +28,11 @@
 
                             <div class="h-40 overflow-hidden">
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
-                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    loading="lazy">
                             </div>
 
-                            <div class="p-4 flex-1 flex flex-col">
+                            <div class="py-4 px-2 flex-1 flex flex-col">
                                 <h6 class="text-gray-900 font-semibold mb-1 truncate">{{ $item->title }}</h6>
                                 <p class="text-gray-500 text-sm flex-1">{{ Str::limit($item->summary, 80, '...') }}</p>
                             </div>

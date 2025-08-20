@@ -55,7 +55,8 @@
                     class="group bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden flex flex-col">
                     <div class="h-48 w-full overflow-hidden">
                         <img src="{{ asset('storage/' . $publication->image) }}" alt="{{ $publication->title }}"
-                            class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300">
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300"
+                            loading="lazy">
                     </div>
                     <div class="p-4 flex flex-col flex-1">
                         <span class="text-xs font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded w-fit mb-2">
@@ -83,7 +84,8 @@
                 <a href="{{ route('publication.show', $latestPublication->slug) }}" class="block">
                     <div class="h-80">
                         <img src="{{ asset('storage/' . $latestPublication->image) }}"
-                            alt="{{ $latestPublication->title }}" class="w-full h-full object-cover object-center">
+                            alt="{{ $latestPublication->title }}" class="w-full h-full object-cover object-center"
+                            loading="lazy">
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-6 text-white max-w-3xl">

@@ -75,7 +75,7 @@
                     @foreach ($latestNews as $item)
                         <a href="{{ route('news.show', $item->slug) }}" class="flex gap-3 group">
                             <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
-                                class="w-24 h-16 object-cover rounded shadow">
+                                class="w-24 h-16 object-cover rounded shadow" loading="lazy">
                             <div>
                                 <p class="text-sm font-semibold text-gray-800 group-hover:text-sky-600 transition">
                                     {{ $item->title }}

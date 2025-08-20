@@ -116,7 +116,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                     <div>
                         <img src="{{ asset('storage/' . $event->thumbnail) }}" alt="Ruang Rapat"
-                            class="w-full h-64 object-cover rounded-lg shadow-md">
+                            class="w-full h-64 object-cover rounded-lg shadow-md" loading="lazy">
                     </div>
                     <div class="space-y-2 text-gray-600">
                         <p><strong>Ukuran Ruang:</strong><br>{{ $event->length }}m x {{ $event->width }}m</p>

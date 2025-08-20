@@ -90,7 +90,8 @@
 
                     <img src="{{ $collection->thumbnail ? asset('storage/' . $collection->thumbnail) : asset('images/default-collection.jpg') }}"
                         alt="{{ $collection->name }}"
-                        class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-in-out">
+                        class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                        loading="lazy">
 
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition duration-300">

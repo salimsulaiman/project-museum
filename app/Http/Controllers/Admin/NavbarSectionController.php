@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\NavbarSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NavbarSectionController extends Controller
 {
@@ -73,18 +74,29 @@ class NavbarSectionController extends Controller
      */
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'id' => 'required|exists:navbar_sections,id',
-            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $section = NavbarSection::findOrFail($validated['id']);
-        $section->update([
-            'title' => $validated['title'],
-        ]);
+        $section = NavbarSection::findOrFail($request->id);
+
+        $dataUpdate = [];
+
+        if ($request->hasFile('image')) {
+            if ($section->logo && Storage::exists('public/' . $section->logo)) {
+                Storage::delete('public/' . $section->logo);
+            }
+
+            $dataUpdate['logo'] = $request->file('image')->store('navbar', 'public');
+        }
+
+        $section->update($dataUpdate);
 
         return redirect()->back()->with('successUpdate', 'Navbar section berhasil diperbarui.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

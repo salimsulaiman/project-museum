@@ -38,7 +38,7 @@
                     <div class="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden">
                         <div class="h-40">
                             <img src="{{ asset('storage/' . $otherPublication->image) }}" alt="Thumbnail"
-                                class="w-full h-full object-cover object-center">
+                                class="w-full h-full object-cover object-center" loading="lazy">
                         </div>
                         <div class="p-4">
                             <span
