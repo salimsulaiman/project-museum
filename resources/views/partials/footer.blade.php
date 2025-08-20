@@ -1,6 +1,6 @@
 <footer class="relative bg-gray-800 py-8 h-96 bg-cover bg-center" style="background-image: url('/images/footer-bg.jpg');">
     <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="absolute inset-0 bg-sky-900/90"></div>
 
     <!-- Konten -->
     <div
