@@ -16,12 +16,12 @@ class NavbarSeeder extends Seeder
     public function run()
     {
         $sectionId = DB::table('navbar_sections')->insertGetId([
-            'title' => 'PELINDO MUSEUM',
+            'logo' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-      
+
         DB::table('navbar_links')->insert([
             [
                 'navbar_section_id' => $sectionId,

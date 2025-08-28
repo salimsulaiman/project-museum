@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('navbar_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

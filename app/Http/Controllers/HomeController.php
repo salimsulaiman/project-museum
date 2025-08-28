@@ -21,18 +21,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $visitors = Visitor::select(
-            DB::raw('DATE_FORMAT(visit_date, "%M %Y") as month'),
-            DB::raw('COUNT(DISTINCT ip_address) as total')
-        )
-            ->groupBy('month', DB::raw('YEAR(visit_date)'), DB::raw('MONTH(visit_date)'))
-            ->orderBy('visit_date', 'desc')
-            ->take(12)
-            ->get()
-            ->reverse();
+        // $visitors = Visitor::select(
+        //     DB::raw('DATE_FORMAT(visit_date, "%M %Y") as month'),
+        //     DB::raw('COUNT(DISTINCT ip_address) as total'),
+        //     DB::raw('YEAR(visit_date) as year'),
+        //     DB::raw('MONTH(visit_date) as month_number')
+        // )
+        //     ->groupBy('year', 'month_number')
+        //     ->orderBy('year', 'desc')
+        //     ->orderBy('month_number', 'desc')
+        //     ->take(12)
+        //     ->get()
+        //     ->reverse();
 
-        $labels = $visitors->pluck('month');
-        $data = $visitors->pluck('total');
+        // $labels = $visitors->pluck('month');
+        // $data   = $visitors->pluck('total');
 
         $banners = Banner::where('is_active', 1)->get();
         $categories = Category::get();
@@ -40,7 +43,7 @@ class HomeController extends Controller
 
         $service = ServiceSection::first();
         $video_streamings = VideoStreaming::limit(8)->get();
-        return view('pages.home.index', compact('banners', 'categories', 'news', 'labels', 'data', 'service', 'video_streamings'));
+        return view('pages.home.index', compact('banners', 'categories', 'news', 'service', 'video_streamings'));
     }
 
     /**
